@@ -10,15 +10,18 @@ const resolveLang = (queryLang?: string): Language => {
   return queryLang?.toLowerCase() === 'id' ? 'id' : 'en';
 };
 
-// Route file statis foto profil
-app.get('/profile.jpg', () => {
-  const file = Bun.file('public/profile.jpg');
-  return new Response(file, {
-    headers: {
-      'Content-Type': 'image/jpeg',
-      'Cache-Control': 'public, max-age=86400',
-    },
-  });
+// Route file statis foto profil (fallback aman untuk Bun lokal; di Cloudflare dilayani otomatis oleh assets)
+app.get('/profile.jpg', (c) => {
+  if (typeof Bun !== 'undefined' && typeof Bun.file === 'function') {
+    const file = Bun.file('public/profile.jpg');
+    return new Response(file, {
+      headers: {
+        'Content-Type': 'image/jpeg',
+        'Cache-Control': 'public, max-age=86400',
+      },
+    });
+  }
+  return c.notFound();
 });
 
 // Route Utama: Render halaman CV & Portofolio editorial estetik
@@ -61,7 +64,4 @@ app.get('/api/github/repos', async (c) => {
   return c.json(result);
 });
 
-export default {
-  port: 3000,
-  fetch: app.fetch,
-};
+export default app;

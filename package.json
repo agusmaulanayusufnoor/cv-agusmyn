@@ -1,7 +1,8 @@
 {
   "name": "cv-agus-maulana",
   "scripts": {
-    "dev": "bun run --hot src/index.tsx"
+    "dev": "bun run --hot src/index.tsx",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "hono": "^4.13.16"
