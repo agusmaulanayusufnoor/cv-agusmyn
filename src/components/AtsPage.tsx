@@ -234,6 +234,18 @@ CERTIFICATIONS & CREDENTIALS
                 {t.navCareer}
               </a>
 
+              <a
+                href={`/export/pdf?lang=${lang}`}
+                download={`Agus-Maulana-Yusuf-Noor-Resume-${lang.toUpperCase()}.pdf`}
+                class="px-3 py-1.5 text-xs font-bold rounded-xl bg-gradient-to-r from-[#B7D894] to-[#E0F8C7] hover:brightness-105 text-[#202734] transition flex items-center gap-1.5 shadow-xs"
+                title="Download 100% ATS-Compliant PDF Resume"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>Export ATS PDF</span>
+              </a>
+
               {/* Language Switcher */}
               <div class="inline-flex rounded-xl bg-[#202734]/90 p-1 border border-white/10 text-xs font-semibold">
                 <a
@@ -506,16 +518,30 @@ CERTIFICATIONS & CREDENTIALS
                 </p>
               </div>
 
-              <button
-                type="button"
-                id="copyRawTextBtn"
-                class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#202734] hover:bg-[#36415A] text-slate-300 hover:text-white border border-white/15 transition flex items-center gap-1.5 cursor-pointer shrink-0"
-              >
-                <svg class="w-3.5 h-3.5 text-[#B7D894]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                </svg>
-                <span>Copy Plain Text</span>
-              </button>
+              <div class="flex items-center gap-2 shrink-0">
+                <a
+                  href={`/export/pdf?lang=${lang}`}
+                  download={`Agus-Maulana-Yusuf-Noor-Resume-${lang.toUpperCase()}.pdf`}
+                  class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#B7D894] to-[#E0F8C7] hover:brightness-105 text-[#202734] transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  title="Download 100% ATS-Compliant PDF Resume"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>Download PDF</span>
+                </a>
+
+                <button
+                  type="button"
+                  id="copyRawTextBtn"
+                  class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#202734] hover:bg-[#36415A] text-slate-300 hover:text-white border border-white/15 transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <svg class="w-3.5 h-3.5 text-[#B7D894]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                  </svg>
+                  <span>Copy Plain Text</span>
+                </button>
+              </div>
             </div>
 
             {/* Terminal Window with Plain Text */}

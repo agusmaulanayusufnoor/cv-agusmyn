@@ -5,6 +5,7 @@ import { AtsPage } from './components/AtsPage';
 import { cvDataByLang, type Language } from './data/cv';
 import { getGitHubRepos } from './services/github';
 import { getVerifiedCareerJobs } from './services/career';
+import { generateAtsResumePdf } from './services/pdf-generator';
 
 const app = new Hono();
 
@@ -154,6 +155,26 @@ app.get('/ats', (c) => {
 app.get('/ats-score', (c) => {
   const lang = resolveLang(c.req.query('lang'));
   return c.html(<AtsPage lang={lang} />);
+});
+
+// Route Export PDF: Menghasilkan resume PDF berstandar ATS murni (vektor, 100% parseable, bukan print html)
+app.get('/export/pdf', async (c) => {
+  const lang = resolveLang(c.req.query('lang'));
+  const pdfBytes = await generateAtsResumePdf(lang);
+  const filename = `Agus-Maulana-Yusuf-Noor-Resume-${lang.toUpperCase()}.pdf`;
+  c.header('Content-Type', 'application/pdf');
+  c.header('Content-Disposition', `attachment; filename="${filename}"`);
+  c.header('Cache-Control', 'public, max-age=86400');
+  return c.body(pdfBytes.buffer as ArrayBuffer);
+});
+
+app.get('/resume.pdf', async (c) => {
+  const lang = resolveLang(c.req.query('lang'));
+  const pdfBytes = await generateAtsResumePdf(lang);
+  c.header('Content-Type', 'application/pdf');
+  c.header('Content-Disposition', 'inline; filename="Agus-Maulana-Yusuf-Noor-Resume.pdf"');
+  c.header('Cache-Control', 'public, max-age=86400');
+  return c.body(pdfBytes.buffer as ArrayBuffer);
 });
 
 export default app;
