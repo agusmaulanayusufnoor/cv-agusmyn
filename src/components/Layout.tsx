@@ -840,64 +840,71 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
         </div>
 
         {/* CLIENT-SIDE INTERACTIVITY SCRIPT (Zero Dependencies, Ultra Fast) */}
-        <script>{`
-          // 1. Interactive 3D Perspective Tilt for Profile Card
-          const card = document.getElementById('profileTiltCard');
-          if (card) {
-            card.addEventListener('mousemove', (e) => {
-              const rect = card.getBoundingClientRect();
-              const x = e.clientX - rect.left - rect.width / 2;
-              const y = e.clientY - rect.top - rect.height / 2;
-              const rotateX = -(y / rect.height) * 14;
-              const rotateY = (x / rect.width) * 14;
-              card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.02, 1.02, 1.02)';
-            });
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // 1. Interactive 3D Perspective Tilt for Profile Card
+              var card = document.getElementById('profileTiltCard');
+              if (card) {
+                card.addEventListener('mousemove', function(e) {
+                  var rect = card.getBoundingClientRect();
+                  var x = e.clientX - rect.left - rect.width / 2;
+                  var y = e.clientY - rect.top - rect.height / 2;
+                  var rotateX = -(y / rect.height) * 14;
+                  var rotateY = (x / rect.width) * 14;
+                  card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.02, 1.02, 1.02)';
+                });
 
-            card.addEventListener('mouseleave', () => {
-              card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-            });
-          }
+                card.addEventListener('mouseleave', function() {
+                  card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
+              }
 
-          // 2. Spotlight Cursor Tracker on Cards
-          document.querySelectorAll('.spotlight-card').forEach((cardEl) => {
-            cardEl.addEventListener('mousemove', (e) => {
-              const rect = cardEl.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-              cardEl.style.setProperty('--mouse-x', x + 'px');
-              cardEl.style.setProperty('--mouse-y', y + 'px');
-            });
-          });
+              // 2. Spotlight Cursor Tracker on Cards
+              var spotlightCards = document.querySelectorAll('.spotlight-card');
+              for (var s = 0; s < spotlightCards.length; s++) {
+                (function(cardEl) {
+                  cardEl.addEventListener('mousemove', function(e) {
+                    var rect = cardEl.getBoundingClientRect();
+                    var x = e.clientX - rect.left;
+                    var y = e.clientY - rect.top;
+                    cardEl.style.setProperty('--mouse-x', x + 'px');
+                    cardEl.style.setProperty('--mouse-y', y + 'px');
+                  });
+                })(spotlightCards[s]);
+              }
 
-          // 3. Project Filter Tabs
-          window.filterProjects = function(type) {
-            const secEnterprise = document.getElementById('section-enterprise');
-            const secGithub = document.getElementById('section-github');
-            const tabs = document.querySelectorAll('.filter-tab');
+              // 3. Project Filter Tabs
+              window.filterProjects = function(type) {
+                var secEnterprise = document.getElementById('section-enterprise');
+                var secGithub = document.getElementById('section-github');
+                var tabs = document.querySelectorAll('.filter-tab');
 
-            tabs.forEach(t => {
-              t.classList.remove('bg-[#B7D894]', 'text-[#202734]', 'font-bold');
-              t.classList.add('text-slate-400');
-            });
+                for (var t = 0; t < tabs.length; t++) {
+                  tabs[t].classList.remove('bg-[#B7D894]', 'text-[#202734]', 'font-bold');
+                  tabs[t].classList.add('text-slate-400');
+                }
 
-            const activeTab = document.getElementById('tab-' + type);
-            if (activeTab) {
-              activeTab.classList.remove('text-slate-400');
-              activeTab.classList.add('bg-[#B7D894]', 'text-[#202734]', 'font-bold');
-            }
+                var activeTab = document.getElementById('tab-' + type);
+                if (activeTab) {
+                  activeTab.classList.remove('text-slate-400');
+                  activeTab.classList.add('bg-[#B7D894]', 'text-[#202734]', 'font-bold');
+                }
 
-            if (type === 'all') {
-              if (secEnterprise) secEnterprise.style.display = 'block';
-              if (secGithub) secGithub.style.display = 'block';
-            } else if (type === 'enterprise') {
-              if (secEnterprise) secEnterprise.style.display = 'block';
-              if (secGithub) secGithub.style.display = 'none';
-            } else if (type === 'github') {
-              if (secEnterprise) secEnterprise.style.display = 'none';
-              if (secGithub) secGithub.style.display = 'block';
-            }
-          };
-        `}</script>
+                if (type === 'all') {
+                  if (secEnterprise) secEnterprise.style.display = 'block';
+                  if (secGithub) secGithub.style.display = 'block';
+                } else if (type === 'enterprise') {
+                  if (secEnterprise) secEnterprise.style.display = 'block';
+                  if (secGithub) secGithub.style.display = 'none';
+                } else if (type === 'github') {
+                  if (secEnterprise) secEnterprise.style.display = 'none';
+                  if (secGithub) secGithub.style.display = 'block';
+                }
+              };
+            `,
+          }}
+        />
       </body>
     </html>
   );

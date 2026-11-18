@@ -429,10 +429,11 @@ export const CareerPage: FC<CareerPageProps> = ({
 
           {/* JOB LISTINGS GRID */}
           <main id="jobGridContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {jobs.map((job) => (
+            {jobs.map((job, idx) => (
               <article
                 key={job.id}
                 class="job-card glass-card rounded-2xl p-6 flex flex-col justify-between space-y-4"
+                style={idx >= 10 ? 'display: none;' : ''}
                 data-region={job.region}
                 data-role={job.roleCategory}
                 data-search={`${job.title} ${job.company} ${job.location} ${job.matchedSkills.join(' ')} ${job.roleCategory}`.toLowerCase()}
@@ -620,248 +621,273 @@ export const CareerPage: FC<CareerPageProps> = ({
         </div>
 
         {/* CLIENT SCRIPT: REAL-TIME FILTERING, PAGINATION & QUICK PITCH GENERATOR */}
-        <script>{`
-          (function() {
-            let activeRegion = 'all';
-            let activeRole = 'all';
-            let searchQuery = '';
-            let currentPage = 1;
-            const ITEMS_PER_PAGE = 8;
-            let matchingCards = [];
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  var activeRegion = 'all';
+  var activeRole = 'all';
+  var searchQuery = '';
+  var currentPage = 1;
+  var ITEMS_PER_PAGE = 10;
+  var matchingCards = [];
 
-            const searchInput = document.getElementById('careerSearchInput');
-            const regionBtns = document.querySelectorAll('.region-btn');
-            const roleBtns = document.querySelectorAll('.role-btn');
-            const jobCards = Array.from(document.querySelectorAll('.job-card'));
-            const filteredCountEl = document.getElementById('filteredCount');
-            const emptyState = document.getElementById('emptyStateNotice');
-            const resetBtn = document.getElementById('resetFiltersBtn');
-            const toast = document.getElementById('toastNotification');
-            const pageInfoText = document.getElementById('pageInfoText');
-            const pageNumbersGroup = document.getElementById('pageNumbersGroup');
-            const prevPageBtn = document.getElementById('prevPageBtn');
-            const nextPageBtn = document.getElementById('nextPageBtn');
-            const paginationNav = document.getElementById('paginationNavContainer');
+  var searchInput = document.getElementById('careerSearchInput');
+  var regionBtns = document.querySelectorAll('.region-btn');
+  var roleBtns = document.querySelectorAll('.role-btn');
+  var jobCards = Array.from(document.querySelectorAll('.job-card'));
+  var filteredCountEl = document.getElementById('filteredCount');
+  var emptyState = document.getElementById('emptyStateNotice');
+  var resetBtn = document.getElementById('resetFiltersBtn');
+  var toast = document.getElementById('toastNotification');
+  var pageInfoText = document.getElementById('pageInfoText');
+  var pageNumbersGroup = document.getElementById('pageNumbersGroup');
+  var prevPageBtn = document.getElementById('prevPageBtn');
+  var nextPageBtn = document.getElementById('nextPageBtn');
+  var paginationNav = document.getElementById('paginationNavContainer');
 
-            function applyFilters() {
-              matchingCards = [];
+  function applyFilters() {
+    matchingCards = [];
 
-              jobCards.forEach(card => {
-                const cardRegion = card.getAttribute('data-region') || '';
-                const cardRole = card.getAttribute('data-role') || '';
-                const cardSearch = card.getAttribute('data-search') || '';
+    for (var i = 0; i < jobCards.length; i++) {
+      var card = jobCards[i];
+      var cardRegion = card.getAttribute('data-region') || '';
+      var cardRole = card.getAttribute('data-role') || '';
+      var cardSearch = card.getAttribute('data-search') || '';
 
-                const matchesRegion = (activeRegion === 'all' || cardRegion === activeRegion);
-                let matchesRole = false;
-                if (activeRole === 'all') {
-                  matchesRole = true;
-                } else if (activeRole === 'ai') {
-                  matchesRole = /\\b(ai|llm|agent|agentic|prompt|genai|vibe|gpt|claude|gemini)\\b/i.test(cardSearch);
-                } else {
-                  matchesRole = (cardRole === activeRole);
-                }
-                const matchesSearch = !searchQuery || cardSearch.includes(searchQuery);
+      var matchesRegion = (activeRegion === 'all' || cardRegion === activeRegion);
+      var matchesRole = false;
+      if (activeRole === 'all') {
+        matchesRole = true;
+      } else if (activeRole === 'ai') {
+        matchesRole = /(ai|llm|agent|agentic|prompt|genai|vibe|gpt|claude|gemini)/i.test(cardSearch);
+      } else {
+        matchesRole = (cardRole === activeRole);
+      }
+      var matchesSearch = !searchQuery || cardSearch.indexOf(searchQuery) !== -1;
 
-                if (matchesRegion && matchesRole && matchesSearch) {
-                  matchingCards.push(card);
-                }
-              });
+      if (matchesRegion && matchesRole && matchesSearch) {
+        matchingCards.push(card);
+      }
+    }
 
-              if (filteredCountEl) {
-                filteredCountEl.textContent = matchingCards.length;
-              }
+    if (filteredCountEl) {
+      filteredCountEl.textContent = String(matchingCards.length);
+    }
 
-              if (emptyState) {
-                emptyState.style.display = (matchingCards.length === 0) ? 'block' : 'none';
-              }
+    if (emptyState) {
+      emptyState.style.display = (matchingCards.length === 0) ? 'block' : 'none';
+    }
 
-              if (paginationNav) {
-                paginationNav.style.display = (matchingCards.length === 0) ? 'none' : 'flex';
-              }
+    if (paginationNav) {
+      paginationNav.style.display = (matchingCards.length === 0) ? 'none' : 'flex';
+    }
 
-              currentPage = 1;
-              renderCurrentPage();
+    currentPage = 1;
+    renderCurrentPage();
+  }
+
+  function renderCurrentPage() {
+    var totalItems = matchingCards.length;
+    var totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    var endIndex = startIndex + ITEMS_PER_PAGE;
+
+    for (var i = 0; i < jobCards.length; i++) {
+      jobCards[i].style.display = 'none';
+    }
+
+    for (var j = startIndex; j < endIndex && j < totalItems; j++) {
+      matchingCards[j].style.display = 'flex';
+    }
+
+    if (pageInfoText) {
+      var isId = (document.documentElement.lang === 'id');
+      pageInfoText.textContent = isId
+        ? ('Halaman ' + currentPage + ' dari ' + totalPages + ' (' + totalItems + ' posisi terverifikasi)')
+        : ('Page ' + currentPage + ' of ' + totalPages + ' (' + totalItems + ' verified roles)');
+    }
+
+    if (prevPageBtn) {
+      prevPageBtn.disabled = (currentPage <= 1);
+    }
+    if (nextPageBtn) {
+      nextPageBtn.disabled = (currentPage >= totalPages);
+    }
+
+    if (pageNumbersGroup) {
+      pageNumbersGroup.innerHTML = '';
+      var startPage = Math.max(1, currentPage - 2);
+      var endPage = Math.min(totalPages, startPage + 4);
+      if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+      }
+
+      for (var p = startPage; p <= endPage; p++) {
+        (function(pageNumber) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = String(pageNumber);
+          if (pageNumber === currentPage) {
+            btn.className = 'w-8 h-8 rounded-lg text-xs font-bold bg-[#B7D894] text-[#202734] shadow-xs cursor-default';
+          } else {
+            btn.className = 'w-8 h-8 rounded-lg text-xs font-semibold bg-[#202734] text-slate-300 hover:text-white border border-white/10 transition cursor-pointer';
+          }
+          btn.addEventListener('click', function() {
+            currentPage = pageNumber;
+            renderCurrentPage();
+            var target = document.getElementById('jobGridContainer');
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
+          });
+          pageNumbersGroup.appendChild(btn);
+        })(p);
+      }
+    }
+  }
 
-            function renderCurrentPage() {
-              const totalItems = matchingCards.length;
-              const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
-              if (currentPage > totalPages) currentPage = totalPages;
-              if (currentPage < 1) currentPage = 1;
+  if (prevPageBtn) {
+    prevPageBtn.addEventListener('click', function() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderCurrentPage();
+        var target = document.getElementById('jobGridContainer');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  }
 
-              const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-              const endIndex = startIndex + ITEMS_PER_PAGE;
+  if (nextPageBtn) {
+    nextPageBtn.addEventListener('click', function() {
+      var totalPages = Math.ceil(matchingCards.length / ITEMS_PER_PAGE);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderCurrentPage();
+        var target = document.getElementById('jobGridContainer');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  }
 
-              // Hide all cards, then show current page slice
-              jobCards.forEach(card => {
-                card.style.display = 'none';
-              });
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      searchQuery = (e.target.value || '').trim().toLowerCase();
+      applyFilters();
+    });
+  }
 
-              for (let i = startIndex; i < endIndex && i < totalItems; i++) {
-                matchingCards[i].style.display = 'flex';
-              }
+  for (var r = 0; r < regionBtns.length; r++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        for (var k = 0; k < regionBtns.length; k++) {
+          regionBtns[k].classList.remove('bg-[#B7D894]', 'text-[#202734]');
+          regionBtns[k].classList.add('bg-[#202734]/80', 'text-slate-300');
+        }
+        btn.classList.remove('bg-[#202734]/80', 'text-slate-300');
+        btn.classList.add('bg-[#B7D894]', 'text-[#202734]');
+        activeRegion = btn.getAttribute('data-region') || 'all';
+        applyFilters();
+      });
+    })(regionBtns[r]);
+  }
 
-              // Update Page Indicator
-              if (pageInfoText) {
-                const lang = document.documentElement.lang;
-                pageInfoText.textContent = (lang === 'id')
-                  ? \`Halaman \${currentPage} dari \${totalPages} (\${totalItems} posisi terverifikasi)\`
-                  : \`Page \${currentPage} of \${totalPages} (\${totalItems} verified roles)\`;
-              }
+  for (var m = 0; m < roleBtns.length; m++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        for (var k = 0; k < roleBtns.length; k++) {
+          roleBtns[k].classList.remove('bg-[#36415A]', 'text-white', 'border-[#B7D894]/40');
+          roleBtns[k].classList.add('bg-[#202734]/80', 'text-slate-300');
+        }
+        btn.classList.remove('bg-[#202734]/80', 'text-slate-300');
+        btn.classList.add('bg-[#36415A]', 'text-white', 'border-[#B7D894]/40');
+        activeRole = btn.getAttribute('data-role') || 'all';
+        applyFilters();
+      });
+    })(roleBtns[m]);
+  }
 
-              // Prev / Next button states
-              if (prevPageBtn) prevPageBtn.disabled = (currentPage <= 1);
-              if (nextPageBtn) nextPageBtn.disabled = (currentPage >= totalPages);
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+      if (searchInput) searchInput.value = '';
+      searchQuery = '';
+      activeRegion = 'all';
+      activeRole = 'all';
 
-              // Render Numbered Page Buttons
-              if (pageNumbersGroup) {
-                pageNumbersGroup.innerHTML = '';
-                let startPage = Math.max(1, currentPage - 2);
-                let endPage = Math.min(totalPages, startPage + 4);
-                if (endPage - startPage < 4) {
-                  startPage = Math.max(1, endPage - 4);
-                }
+      for (var i = 0; i < regionBtns.length; i++) {
+        if (i === 0) {
+          regionBtns[i].classList.add('bg-[#B7D894]', 'text-[#202734]');
+          regionBtns[i].classList.remove('bg-[#202734]/80', 'text-slate-300');
+        } else {
+          regionBtns[i].classList.remove('bg-[#B7D894]', 'text-[#202734]');
+          regionBtns[i].classList.add('bg-[#202734]/80', 'text-slate-300');
+        }
+      }
 
-                for (let p = startPage; p <= endPage; p++) {
-                  const btn = document.createElement('button');
-                  btn.type = 'button';
-                  btn.textContent = String(p);
-                  if (p === currentPage) {
-                    btn.className = 'w-8 h-8 rounded-lg text-xs font-bold bg-[#B7D894] text-[#202734] shadow-xs';
-                  } else {
-                    btn.className = 'w-8 h-8 rounded-lg text-xs font-semibold bg-[#202734] text-slate-300 hover:text-white border border-white/10 transition cursor-pointer';
-                  }
-                  btn.addEventListener('click', () => {
-                    currentPage = p;
-                    renderCurrentPage();
-                    document.getElementById('jobGridContainer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  });
-                  pageNumbersGroup.appendChild(btn);
-                }
-              }
-            }
+      for (var j = 0; j < roleBtns.length; j++) {
+        if (j === 0) {
+          roleBtns[j].classList.add('bg-[#36415A]', 'text-white', 'border-[#B7D894]/40');
+          roleBtns[j].classList.remove('bg-[#202734]/80', 'text-slate-300');
+        } else {
+          roleBtns[j].classList.remove('bg-[#36415A]', 'text-white', 'border-[#B7D894]/40');
+          roleBtns[j].classList.add('bg-[#202734]/80', 'text-slate-300');
+        }
+      }
 
-            // Pagination Prev & Next Button Listeners
-            if (prevPageBtn) {
-              prevPageBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                  currentPage--;
-                  renderCurrentPage();
-                  document.getElementById('jobGridContainer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              });
-            }
+      applyFilters();
+    });
+  }
 
-            if (nextPageBtn) {
-              nextPageBtn.addEventListener('click', () => {
-                const totalPages = Math.ceil(matchingCards.length / ITEMS_PER_PAGE);
-                if (currentPage < totalPages) {
-                  currentPage++;
-                  renderCurrentPage();
-                  document.getElementById('jobGridContainer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              });
-            }
+  var pitchButtons = document.querySelectorAll('.copy-pitch-btn');
+  for (var p = 0; p < pitchButtons.length; p++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        var title = btn.getAttribute('data-job-title') || 'Technical Role';
+        var company = btn.getAttribute('data-job-company') || 'your company';
+        var pitch = "Hi! I am Agus Maulana Yusuf Noor, an IT Department Head & Backend Engineer with 15+ years of experience in enterprise banking, Linux server administration, and modern AI & Vibe Coding paradigms (Golang, Python, Laravel, MySQL, AI Agents). I would love to connect regarding the " + title + " opening at " + company + "! Full Portfolio & ATS Scorecard: https://agusmyn.my.id";
 
-            // Search input listener
-            if (searchInput) {
-              searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value.trim().toLowerCase();
-                applyFilters();
-              });
-            }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(pitch).then(showToast).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
 
-            // Region filter buttons
-            regionBtns.forEach(btn => {
-              btn.addEventListener('click', () => {
-                regionBtns.forEach(b => {
-                  b.classList.remove('bg-[#B7D894]', 'text-[#202734]');
-                  b.classList.add('bg-[#202734]/80', 'text-slate-300');
-                });
-                btn.classList.remove('bg-[#202734]/80', 'text-slate-300');
-                btn.classList.add('bg-[#B7D894]', 'text-[#202734]');
+        function fallbackCopy() {
+          var el = document.createElement('textarea');
+          el.value = pitch;
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+          showToast();
+        }
+      });
+    })(pitchButtons[p]);
+  }
 
-                activeRegion = btn.getAttribute('data-region') || 'all';
-                applyFilters();
-              });
-            });
+  function showToast() {
+    if (!toast) return;
+    toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    setTimeout(function() {
+      toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 3000);
+  }
 
-            // Role filter buttons
-            roleBtns.forEach(btn => {
-              btn.addEventListener('click', () => {
-                roleBtns.forEach(b => {
-                  b.classList.remove('bg-[#36415A]', 'text-white', 'border-[#B7D894]/40');
-                  b.classList.add('bg-[#202734]/80', 'text-slate-300');
-                });
-                btn.classList.remove('bg-[#202734]/80', 'text-slate-300');
-                btn.classList.add('bg-[#36415A]', 'text-white', 'border-[#B7D894]/40');
-
-                activeRole = btn.getAttribute('data-role') || 'all';
-                applyFilters();
-              });
-            });
-
-            // Reset filters
-            if (resetBtn) {
-              resetBtn.addEventListener('click', () => {
-                if (searchInput) searchInput.value = '';
-                searchQuery = '';
-                activeRegion = 'all';
-                activeRole = 'all';
-
-                regionBtns.forEach((b, i) => {
-                  b.classList.toggle('bg-[#B7D894]', i === 0);
-                  b.classList.toggle('text-[#202734]', i === 0);
-                  b.classList.toggle('bg-[#202734]/80', i !== 0);
-                  b.classList.toggle('text-slate-300', i !== 0);
-                });
-
-                roleBtns.forEach((b, i) => {
-                  b.classList.toggle('bg-[#36415A]', i === 0);
-                  b.classList.toggle('text-white', i === 0);
-                  b.classList.toggle('bg-[#202734]/80', i !== 0);
-                  b.classList.toggle('text-slate-300', i !== 0);
-                });
-
-                applyFilters();
-              });
-            }
-
-            // Quick Pitch Generator & Copy (Tailored for Agus Maulana + AI & Banking)
-            document.querySelectorAll('.copy-pitch-btn').forEach(btn => {
-              btn.addEventListener('click', () => {
-                const title = btn.getAttribute('data-job-title') || 'Technical Role';
-                const company = btn.getAttribute('data-job-company') || 'your company';
-                const pitch = "Hi! I am Agus Maulana Yusuf Noor, an IT Department Head & Backend Engineer with 15+ years of experience in enterprise banking, Linux server administration, and modern AI & Vibe Coding paradigms (Golang, Python, Laravel, MySQL, AI Agents). I would love to connect regarding the " + title + " opening at " + company + "! Full Portfolio & ATS Scorecard: https://agusmyn.my.id";
-
-                navigator.clipboard.writeText(pitch).then(() => {
-                  showToast();
-                }).catch(() => {
-                  const el = document.createElement('textarea');
-                  el.value = pitch;
-                  document.body.appendChild(el);
-                  el.select();
-                  document.execCommand('copy');
-                  document.body.removeChild(el);
-                  showToast();
-                });
-              });
-            });
-
-            function showToast() {
-              if (!toast) return;
-              toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-              toast.classList.add('opacity-100', 'translate-y-0');
-              setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-                toast.classList.remove('opacity-100', 'translate-y-0');
-              }, 3000);
-            }
-
-            // Initial load
-            applyFilters();
-          })();
-        `}</script>
+  // Run on initial load
+  applyFilters();
+})();
+            `,
+          }}
+        />
       </body>
     </html>
   );

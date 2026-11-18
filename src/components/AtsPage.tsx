@@ -568,22 +568,26 @@ CERTIFICATIONS & CREDENTIALS
         </div>
 
         {/* COPY TOAST SCRIPT */}
-        <script>{`
-          const copyBtn = document.getElementById('copyRawTextBtn');
-          const preEl = document.getElementById('plainTextContainer');
-          if (copyBtn && preEl) {
-            copyBtn.addEventListener('click', () => {
-              const text = preEl.textContent || '';
-              navigator.clipboard.writeText(text).then(() => {
-                const orig = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<span>✓ Copied!</span>';
-                setTimeout(() => {
-                  copyBtn.innerHTML = orig;
-                }, 2000);
-              });
-            });
-          }
-        `}</script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              var copyBtn = document.getElementById('copyRawTextBtn');
+              var preEl = document.getElementById('plainTextContainer');
+              if (copyBtn && preEl) {
+                copyBtn.addEventListener('click', function() {
+                  var text = preEl.textContent || '';
+                  navigator.clipboard.writeText(text).then(function() {
+                    var orig = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<span>✓ Copied!</span>';
+                    setTimeout(function() {
+                      copyBtn.innerHTML = orig;
+                    }, 2000);
+                  });
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
