@@ -87,59 +87,31 @@ export const CareerPage: FC<CareerPageProps> = ({
           content="Curated active career vacancies (≤ 14 days old) filtered through enterprise ATS whitelists and anti-scam security checks, tailored for Agus Maulana Yusuf Noor."
         />
 
-        {/* Fonts & Styling */}
+        {/* Performance Preconnects for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* Compiled Static CSS (Zero Render-Blocking JS) */}
+        <link rel="stylesheet" href="/css/style.css" />
+
+        {/* Non-Render-Blocking Google Fonts */}
         <link
+          rel="preload"
+          as="style"
           href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
         />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-        <style>{`
-          body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #202734;
-            color: #f1f5f9;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-          }
-
-          .font-mono {
-            font-family: 'JetBrains Mono', monospace;
-          }
-
-          /* Spatial Glassmorphism Elements with Color Palette (#202734, #36415A, #B7D894, #E0F8C7) */
-          .glass-panel {
-            background: rgba(54, 65, 90, 0.45);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(183, 216, 148, 0.16);
-            box-shadow: 0 20px 50px -10px rgba(18, 22, 30, 0.75), inset 0 1px 0 0 rgba(224, 248, 199, 0.08);
-          }
-
-          .glass-card {
-            background: rgba(32, 39, 52, 0.75);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px -10px rgba(18, 22, 30, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-          }
-
-          .glass-card:hover {
-            background: rgba(54, 65, 90, 0.65);
-            border-color: rgba(183, 216, 148, 0.45);
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px -12px rgba(183, 216, 148, 0.18), inset 0 1px 0 0 rgba(224, 248, 199, 0.15);
-          }
-
-          /* Toast Animation */
-          #toastNotification {
-            transition: opacity 0.3s ease, transform 0.3s ease;
-          }
-        `}</style>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+          media="print"
+          onload="this.media='all'"
+        />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+          />
+        </noscript>
       </head>
 
       <body class="selection:bg-[#B7D894] selection:text-[#202734] min-h-screen relative">
@@ -158,6 +130,8 @@ export const CareerPage: FC<CareerPageProps> = ({
                 <img
                   src="/profile.jpg"
                   alt={profile.name}
+                  width="44"
+                  height="44"
                   class="w-full h-full object-cover object-top"
                 />
               </div>

@@ -18,7 +18,7 @@ export interface VerifiedCareerJob {
   matchedSkills: string[];
   roleCategory: 'lead' | 'backend' | 'sysadmin_dba' | 'fullstack';
   trustScore: number;
-  trustLevel: 'verified_ats' | 'verified_company';
+  trustLevel: 'verified_ats' | 'verified_company' | 'low';
   atsVendor?: string;
   trustFlags: string[];
   summarySnippet: string;

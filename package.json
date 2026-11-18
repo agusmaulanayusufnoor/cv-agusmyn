@@ -1,14 +1,17 @@
 {
   "name": "cv-agus-maulana",
   "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./public/css/style.css --minify",
+    "build": "bun run build:css",
     "dev": "bun run --hot src/index.tsx",
-    "deploy": "wrangler deploy"
+    "deploy": "bun run build:css && wrangler deploy"
   },
   "dependencies": {
     "hono": "^4.13.16"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "tailwindcss": "^3.4.17",
     "wrangler": "^4.163.0"
   }
 }

@@ -87,194 +87,34 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
           })
         }} />
 
-        {/* Google Fonts: Plus Jakarta Sans (Clean Modern UI) & JetBrains Mono (Tech Accents) */}
+        {/* Performance Preconnects for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* Preload High-Priority LCP Hero Image for Instant Discovery */}
+        <link rel="preload" as="image" href="/profile.jpg" fetchpriority="high" />
+
+        {/* Compiled Static CSS (Zero Render-Blocking JS, Ultra-fast edge delivery) */}
+        <link rel="stylesheet" href="/css/style.css" />
+
+        {/* Non-Render-Blocking Google Fonts */}
         <link
+          rel="preload"
+          as="style"
           href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
         />
-
-        {/* Tailwind CSS CDN */}
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>{`
-          tailwind.config = {
-            theme: {
-              extend: {
-                fontFamily: {
-                  sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-                  mono: ['"JetBrains Mono"', 'monospace'],
-                },
-                colors: {
-                  palette: {
-                    dark: '#202734',
-                    slate: '#36415A',
-                    sage: '#B7D894',
-                    pale: '#E0F8C7',
-                  }
-                }
-              }
-            }
-          }
-        `}</script>
-
-        <style>{`
-          /* Spatial Depth & Glassmorphism Utilities with Palette (#202734, #36415A, #B7D894, #E0F8C7) */
-          .glass-panel {
-            background: rgba(54, 65, 90, 0.45);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(183, 216, 148, 0.16);
-            box-shadow: 0 20px 50px -10px rgba(18, 22, 30, 0.75), inset 0 1px 0 0 rgba(224, 248, 199, 0.08);
-          }
-
-          .glass-card {
-            background: rgba(32, 39, 52, 0.7);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px -10px rgba(18, 22, 30, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          }
-
-          .glass-card:hover {
-            background: rgba(54, 65, 90, 0.65);
-            border-color: rgba(183, 216, 148, 0.45);
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px -12px rgba(183, 216, 148, 0.18), inset 0 1px 0 0 rgba(224, 248, 199, 0.15);
-          }
-
-          /* Interactive Spotlight Overlay */
-          .spotlight-card {
-            position: relative;
-            overflow: hidden;
-          }
-          .spotlight-card::before {
-            content: '';
-            position: absolute;
-            top: var(--mouse-y, -100px);
-            left: var(--mouse-x, -100px);
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(183, 216, 148, 0.18) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-          }
-          .spotlight-card:hover::before {
-            opacity: 1;
-          }
-
-          /* Subtle Ambient Floating */
-          @keyframes ambientFloat {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-12px) scale(1.02); }
-          }
-          .animate-ambient {
-            animation: ambientFloat 10s ease-in-out infinite;
-          }
-
-          /* 3D Tilt Container */
-          .perspective-container {
-            perspective: 1200px;
-          }
-          .tilt-card {
-            transform-style: preserve-3d;
-            transition: transform 0.15s ease-out;
-          }
-
-          /* Print / PDF Corporate Styles for 100% ATS & Recruiter Compliance */
-          @page {
-            size: A4;
-            margin: 12mm 15mm;
-          }
-          @media print {
-            .no-print, nav, header, footer, button, .perspective-container, #profileTiltCard, .filter-tab, #toastNotification {
-              display: none !important;
-            }
-            * {
-              -webkit-print-color-adjust: exact !important;
-              print-color-adjust: exact !important;
-              box-shadow: none !important;
-              text-shadow: none !important;
-            }
-            body {
-              background: #ffffff !important;
-              color: #111827 !important;
-              padding: 0 !important;
-              font-family: Arial, Helvetica, sans-serif !important;
-              font-size: 10pt !important;
-              line-height: 1.4 !important;
-            }
-            /* STRICT SINGLE-COLUMN LINEAR ATS LAYOUT (Eliminates multi-column text scrambling) */
-            .grid, [class*="grid-cols-"], .flex, .lg\\:grid-cols-12, .lg\\:col-span-8, .lg\\:col-span-4, .lg\\:grid-cols-2, .grid-cols-1, .grid-cols-2, .grid-cols-3, .grid-cols-4 {
-              display: block !important;
-              width: 100% !important;
-              float: none !important;
-              gap: 0 !important;
-              margin: 0 !important;
-              padding: 0 !important;
-            }
-            .glass-panel, .glass-card {
-              background: transparent !important;
-              color: #111827 !important;
-              border: none !important;
-              box-shadow: none !important;
-              backdrop-filter: none !important;
-              padding: 0 !important;
-              margin: 0 0 1.25rem 0 !important;
-              break-inside: avoid !important;
-              page-break-inside: avoid !important;
-            }
-            h1 {
-              font-size: 18pt !important;
-              font-weight: bold !important;
-              color: #000000 !important;
-              margin-bottom: 2pt !important;
-            }
-            h2 {
-              font-size: 12pt !important;
-              font-weight: bold !important;
-              text-transform: uppercase !important;
-              letter-spacing: 0.5px !important;
-              color: #111827 !important;
-              border-bottom: 1.5pt solid #111827 !important;
-              padding-bottom: 2pt !important;
-              margin-top: 14pt !important;
-              margin-bottom: 6pt !important;
-              break-after: avoid !important;
-              page-break-after: avoid !important;
-            }
-            h3 {
-              font-size: 10.5pt !important;
-              font-weight: bold !important;
-              color: #111827 !important;
-              margin-top: 6pt !important;
-              margin-bottom: 2pt !important;
-            }
-            p, span, li {
-              color: #1f2937 !important;
-              font-size: 10pt !important;
-            }
-            ul {
-              margin: 4pt 0 8pt 1.2rem !important;
-              list-style-type: disc !important;
-              padding: 0 !important;
-            }
-            li {
-              margin-bottom: 3pt !important;
-              display: list-item !important;
-            }
-            .text-slate-400, .text-slate-300, .text-slate-500, .text-slate-200 { color: #374151 !important; }
-            .text-white { color: #111827 !important; }
-            .text-[#B7D894], .text-[#E0F8C7] { color: #111827 !important; }
-            a { text-decoration: none !important; color: #111827 !important; }
-            .print\\:block { display: block !important; }
-            .print\\:inline { display: inline !important; }
-            .print\\:hidden { display: none !important; }
-          }
-        `}</style>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+          media="print"
+          onload="this.media='all'"
+        />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+          />
+        </noscript>
       </head>
 
       <body class="bg-[#202734] text-slate-200 font-sans antialiased selection:bg-[#B7D894] selection:text-[#202734] min-h-screen relative overflow-x-hidden">
@@ -298,6 +138,8 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                 <img
                   src="/profile.jpg"
                   alt="Agus Maulana Yusuf Noor"
+                  width="44"
+                  height="44"
                   class="w-full h-full object-cover object-top"
                 />
               </div>
@@ -500,6 +342,9 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                       <img
                         src="/profile.jpg"
                         alt={profile.name}
+                        width="320"
+                        height="384"
+                        fetchpriority="high"
                         class="w-full h-88 sm:h-96 object-cover object-top transition duration-700 ease-out group-hover:scale-105"
                       />
 

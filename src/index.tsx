@@ -13,14 +13,27 @@ const resolveLang = (queryLang?: string): Language => {
   return queryLang?.toLowerCase() === 'id' ? 'id' : 'en';
 };
 
-// Route file statis foto profil (fallback aman untuk Bun lokal; di Cloudflare dilayani otomatis oleh assets)
+// Route file statis foto profil & style.css (fallback aman untuk Bun lokal; di Cloudflare dilayani otomatis oleh assets)
 app.get('/profile.jpg', (c) => {
   if (typeof Bun !== 'undefined' && typeof Bun.file === 'function') {
     const file = Bun.file('public/profile.jpg');
     return new Response(file, {
       headers: {
         'Content-Type': 'image/jpeg',
-        'Cache-Control': 'public, max-age=86400',
+        'Cache-Control': 'public, max-age=604800, stale-while-revalidate=86400',
+      },
+    });
+  }
+  return c.notFound();
+});
+
+app.get('/css/style.css', (c) => {
+  if (typeof Bun !== 'undefined' && typeof Bun.file === 'function') {
+    const file = Bun.file('public/css/style.css');
+    return new Response(file, {
+      headers: {
+        'Content-Type': 'text/css; charset=utf-8',
+        'Cache-Control': 'public, max-age=31536000, immutable',
       },
     });
   }
