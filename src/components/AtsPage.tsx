@@ -1,5 +1,6 @@
 import type { FC } from 'hono/jsx';
 import { cvDataByLang, type Language } from '../data/cv';
+import { compiledCss } from '../styles/compiledCss';
 
 interface AtsPageProps {
   lang: Language;
@@ -157,8 +158,8 @@ CERTIFICATIONS & CREDENTIALS
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Compiled Static CSS (Zero Render-Blocking JS) */}
-        <link rel="stylesheet" href="/css/style.css" />
+        {/* 100% Inlined Production CSS — Zero Render-Blocking HTTP Roundtrips */}
+        <style dangerouslySetInnerHTML={{ __html: compiledCss }} />
 
         {/* Non-Render-Blocking Google Fonts */}
         <link
@@ -192,13 +193,16 @@ CERTIFICATIONS & CREDENTIALS
           <header class="glass-panel rounded-2xl px-4 sm:px-6 py-3.5 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <a href={`/?lang=${lang}`} class="flex items-center gap-3.5 group">
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-[#B7D894]/70 shadow-md shadow-[#B7D894]/20 group-hover:scale-105 group-hover:border-[#E0F8C7] transition-all shrink-0 bg-[#202734]">
-                <img
-                  src="/profile.jpg"
-                  alt={profile.name}
-                  width="44"
-                  height="44"
-                  class="w-full h-full object-cover object-top"
-                />
+                <picture>
+                  <source srcset="/profile-thumb.webp" type="image/webp" />
+                  <img
+                    src="/profile.jpg"
+                    alt={profile.name}
+                    width="44"
+                    height="44"
+                    class="w-full h-full object-cover object-top"
+                  />
+                </picture>
               </div>
               <div>
                 <span class="font-bold text-base sm:text-lg text-white tracking-tight block group-hover:text-[#E0F8C7] transition-colors">

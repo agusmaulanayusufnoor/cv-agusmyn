@@ -1,6 +1,7 @@
 import type { FC } from 'hono/jsx';
 import { cvDataByLang, uiLabels, type Language } from '../data/cv';
 import type { GitHubRepo } from '../services/github';
+import { compiledCss } from '../styles/compiledCss';
 
 interface CvPageProps {
   lang: Language;
@@ -91,11 +92,11 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Preload High-Priority LCP Hero Image for Instant Discovery */}
-        <link rel="preload" as="image" href="/profile.jpg" fetchpriority="high" />
+        {/* Preload High-Priority LCP Hero WebP Image for Instant Discovery */}
+        <link rel="preload" as="image" href="/profile.webp" type="image/webp" fetchpriority="high" />
 
-        {/* Compiled Static CSS (Zero Render-Blocking JS, Ultra-fast edge delivery) */}
-        <link rel="stylesheet" href="/css/style.css" />
+        {/* 100% Inlined Production CSS — Zero Render-Blocking HTTP Roundtrips */}
+        <style dangerouslySetInnerHTML={{ __html: compiledCss }} />
 
         {/* Non-Render-Blocking Google Fonts */}
         <link
@@ -135,13 +136,16 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
             {/* Logo / Avatar & Name */}
             <a href="/" class="flex items-center gap-3.5 group">
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-[#B7D894]/70 shadow-md shadow-[#B7D894]/20 group-hover:scale-105 group-hover:border-[#E0F8C7] transition-all shrink-0 bg-[#202734]">
-                <img
-                  src="/profile.jpg"
-                  alt="Agus Maulana Yusuf Noor"
-                  width="44"
-                  height="44"
-                  class="w-full h-full object-cover object-top"
-                />
+                <picture>
+                  <source srcset="/profile-thumb.webp" type="image/webp" />
+                  <img
+                    src="/profile.jpg"
+                    alt="Agus Maulana Yusuf Noor"
+                    width="44"
+                    height="44"
+                    class="w-full h-full object-cover object-top"
+                  />
+                </picture>
               </div>
               <div>
                 <span class="font-bold text-base sm:text-lg text-white tracking-tight block group-hover:text-[#E0F8C7] transition-colors">
@@ -339,14 +343,17 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
 
                     {/* Image Surface Frame */}
                     <div class="relative rounded-2xl overflow-hidden border border-white/15 bg-[#202734] shadow-2xl">
-                      <img
-                        src="/profile.jpg"
-                        alt={profile.name}
-                        width="320"
-                        height="384"
-                        fetchpriority="high"
-                        class="w-full h-88 sm:h-96 object-cover object-top transition duration-700 ease-out group-hover:scale-105"
-                      />
+                      <picture>
+                        <source srcset="/profile.webp" type="image/webp" />
+                        <img
+                          src="/profile.jpg"
+                          alt={profile.name}
+                          width="320"
+                          height="384"
+                          fetchpriority="high"
+                          class="w-full h-88 sm:h-96 object-cover object-top transition duration-700 ease-out group-hover:scale-105"
+                        />
+                      </picture>
 
                       {/* Glass Info Badges Overlaid on Photo */}
                       <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#202734]/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-[#E0F8C7] font-medium">

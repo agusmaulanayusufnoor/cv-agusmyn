@@ -14,6 +14,32 @@ const resolveLang = (queryLang?: string): Language => {
 };
 
 // Route file statis foto profil & style.css (fallback aman untuk Bun lokal; di Cloudflare dilayani otomatis oleh assets)
+app.get('/profile.webp', (c) => {
+  if (typeof Bun !== 'undefined' && typeof Bun.file === 'function') {
+    const file = Bun.file('public/profile.webp');
+    return new Response(file, {
+      headers: {
+        'Content-Type': 'image/webp',
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      },
+    });
+  }
+  return c.notFound();
+});
+
+app.get('/profile-thumb.webp', (c) => {
+  if (typeof Bun !== 'undefined' && typeof Bun.file === 'function') {
+    const file = Bun.file('public/profile-thumb.webp');
+    return new Response(file, {
+      headers: {
+        'Content-Type': 'image/webp',
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      },
+    });
+  }
+  return c.notFound();
+});
+
 app.get('/profile.jpg', (c) => {
   if (typeof Bun !== 'undefined' && typeof Bun.file === 'function') {
     const file = Bun.file('public/profile.jpg');
