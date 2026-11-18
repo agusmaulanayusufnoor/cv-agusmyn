@@ -42,14 +42,19 @@ export const CareerPage: FC<CareerPageProps> = ({
     statTrust: isId ? 'Indeks Keamanan' : 'Trust & Safety Index',
     statMatch: isId ? 'Skor Kecocokan CV' : 'Max Profile Match',
     searchPlaceholder: isId
-      ? 'Cari berdasarkan posisi, perusahaan, atau teknologi (contoh: Golang, Laravel, Linux, Lead)...'
-      : 'Search title, company, or skills (e.g. Golang, Laravel, Linux, Lead, Remote)...',
+      ? 'Cari berdasarkan posisi, perusahaan, teknologi, atau negara (contoh: UAE, Saudi, Golang, Linux, Lead)...'
+      : 'Search title, company, skills, or country (e.g. UAE, Saudi, Qatar, Golang, Linux, Lead)...',
     filterRegionAll: isId ? 'Semua Wilayah' : 'All Regions',
+    filterMiddleEast: isId ? '🇦🇪 🇸🇦 Timur Tengah (UAE, Arab, Qatar, Kuwait)' : '🇦🇪 🇸🇦 Middle East (UAE, Saudi, Qatar, Kuwait)',
     filterWorldwide: isId ? '🌍 Global Remote' : '🌍 Worldwide Remote',
     filterSeaId: isId ? '🇮🇩 Asia Tenggara & ID' : '🇮🇩 Southeast Asia & ID',
     filterUsCa: isId ? '🇺🇸 US & North America' : '🇺🇸 US & North America',
     filterEurope: isId ? '🇪🇺 Europe & UK' : '🇪🇺 Europe & UK',
     filterApac: isId ? '🌏 Asia-Pacific (APAC)' : '🌏 Asia-Pacific (APAC)',
+    sortLabel: isId ? 'Urutkan:' : 'Sort by:',
+    sortSalary: isId ? '💰 Gaji Tertinggi' : '💰 Highest Salary',
+    sortMatch: isId ? '🎯 Kecocokan CV' : '🎯 Best Match',
+    sortNewest: isId ? '⚡ Terbit Terbaru' : '⚡ Newest',
     filterRoleAll: isId ? 'Semua Posisi' : 'All Roles',
     filterRoleLead: isId ? 'IT Head & Lead' : 'IT Head & Lead',
     filterRoleBackend: isId ? 'Backend Engineering' : 'Backend Engineering',
@@ -304,6 +309,41 @@ export const CareerPage: FC<CareerPageProps> = ({
               </svg>
             </div>
 
+            {/* Sort Order Toolbar (Order by Salary Tertinggi, Match Score, Newest) */}
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-1 pb-2 border-b border-white/5">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-xs font-mono text-slate-400 mr-1">{t.sortLabel}</span>
+                <div class="inline-flex rounded-xl p-1 bg-[#202734] border border-white/10 gap-1">
+                  <button
+                    type="button"
+                    data-sort="salary"
+                    class="sort-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-amber-400 to-[#B7D894] text-[#202734] transition cursor-pointer shadow-xs"
+                  >
+                    {t.sortSalary}
+                  </button>
+                  <button
+                    type="button"
+                    data-sort="match"
+                    class="sort-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white transition cursor-pointer"
+                  >
+                    {t.sortMatch}
+                  </button>
+                  <button
+                    type="button"
+                    data-sort="newest"
+                    class="sort-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white transition cursor-pointer"
+                  >
+                    {t.sortNewest}
+                  </button>
+                </div>
+              </div>
+
+              <div class="text-[11px] font-mono text-amber-300/90 bg-amber-500/10 border border-amber-500/25 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+                <span>✨</span>
+                <span>{isId ? 'Paket Gaji Timur Tengah Bebas Pajak (Tax-Free Expat Package)' : 'Tax-Free Middle East Expat Packages Included'}</span>
+              </div>
+            </div>
+
             {/* Region Filter Buttons */}
             <div class="flex flex-wrap items-center gap-2 pt-1">
               <span class="text-xs font-mono text-slate-400 mr-1">Region:</span>
@@ -313,6 +353,14 @@ export const CareerPage: FC<CareerPageProps> = ({
                 class="region-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#B7D894] text-[#202734] transition cursor-pointer"
               >
                 {t.filterRegionAll}
+              </button>
+              <button
+                type="button"
+                data-region="middle_east"
+                class="region-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734]/80 text-amber-300 hover:text-amber-200 border border-amber-500/40 hover:border-amber-400 transition cursor-pointer flex items-center gap-1.5"
+              >
+                <span>🇦🇪 🇸🇦</span>
+                <span>{t.filterMiddleEast}</span>
               </button>
               <button
                 type="button"
@@ -430,17 +478,31 @@ export const CareerPage: FC<CareerPageProps> = ({
                 style={idx >= 10 ? 'display: none;' : ''}
                 data-region={job.region}
                 data-role={job.roleCategory}
-                data-search={`${job.title} ${job.company} ${job.location} ${job.matchedSkills.join(' ')} ${job.roleCategory}`.toLowerCase()}
+                data-salary={job.salaryNumeric || 0}
+                data-match={job.matchScore || 0}
+                data-date={new Date(job.postedAt).getTime() || 0}
+                data-search={`${job.title} ${job.company} ${job.location} ${job.salary || ''} ${job.matchedSkills.join(' ')} ${job.roleCategory}`.toLowerCase()}
               >
                 {/* Header: Company & Badges */}
                 <div class="space-y-2.5">
-                  <div class="flex items-start justify-between gap-3">
-                    {/* Match Score Badge */}
-                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#B7D894]/20 border border-[#B7D894]/40 text-[#E0F8C7] text-xs font-mono font-bold">
-                      <svg class="w-3.5 h-3.5 text-[#B7D894]" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                      </svg>
-                      <span>{job.matchScore}% Match</span>
+                  <div class="flex flex-wrap items-center justify-between gap-2.5">
+                    {/* Left: Match & Salary Badges */}
+                    <div class="flex flex-wrap items-center gap-2">
+                      {/* Match Score Badge */}
+                      <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#B7D894]/20 border border-[#B7D894]/40 text-[#E0F8C7] text-xs font-mono font-bold">
+                        <svg class="w-3.5 h-3.5 text-[#B7D894]" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span>{job.matchScore}% Match</span>
+                      </div>
+
+                      {/* Prominent Salary Badge */}
+                      {job.salary && (
+                        <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 text-xs font-mono font-bold">
+                          <span>💰</span>
+                          <span>{job.salary}</span>
+                        </div>
+                      )}
                     </div>
 
                     {/* Freshness Badge (≤ 14 Days) */}
@@ -621,6 +683,7 @@ export const CareerPage: FC<CareerPageProps> = ({
 (function() {
   var activeRegion = 'all';
   var activeRole = 'all';
+  var activeSort = 'salary'; // Default: Order by Salary Tertinggi
   var searchQuery = '';
   var currentPage = 1;
   var ITEMS_PER_PAGE = 10;
@@ -629,6 +692,7 @@ export const CareerPage: FC<CareerPageProps> = ({
   var searchInput = document.getElementById('careerSearchInput');
   var regionBtns = document.querySelectorAll('.region-btn');
   var roleBtns = document.querySelectorAll('.role-btn');
+  var sortBtns = document.querySelectorAll('.sort-btn');
   var jobCards = Array.from(document.querySelectorAll('.job-card'));
   var filteredCountEl = document.getElementById('filteredCount');
   var emptyState = document.getElementById('emptyStateNotice');
@@ -664,6 +728,26 @@ export const CareerPage: FC<CareerPageProps> = ({
         matchingCards.push(card);
       }
     }
+
+    // Sort matching cards by selected order (Salary, Match Score, or Newest)
+    matchingCards.sort(function(a, b) {
+      if (activeSort === 'salary') {
+        var salA = Number(a.getAttribute('data-salary') || 0);
+        var salB = Number(b.getAttribute('data-salary') || 0);
+        if (salB !== salA) return salB - salA;
+        return Number(b.getAttribute('data-match') || 0) - Number(a.getAttribute('data-match') || 0);
+      } else if (activeSort === 'newest') {
+        var dateA = Number(a.getAttribute('data-date') || 0);
+        var dateB = Number(b.getAttribute('data-date') || 0);
+        return dateB - dateA;
+      } else {
+        // match
+        var matchA = Number(a.getAttribute('data-match') || 0);
+        var matchB = Number(b.getAttribute('data-match') || 0);
+        if (matchB !== matchA) return matchB - matchA;
+        return Number(b.getAttribute('data-salary') || 0) - Number(a.getAttribute('data-salary') || 0);
+      }
+    });
 
     if (filteredCountEl) {
       filteredCountEl.textContent = String(matchingCards.length);
@@ -778,6 +862,21 @@ export const CareerPage: FC<CareerPageProps> = ({
     });
   }
 
+  for (var s = 0; s < sortBtns.length; s++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        for (var k = 0; k < sortBtns.length; k++) {
+          sortBtns[k].classList.remove('bg-gradient-to-r', 'from-amber-400', 'to-[#B7D894]', 'text-[#202734]', 'font-bold');
+          sortBtns[k].classList.add('text-slate-300', 'font-semibold');
+        }
+        btn.classList.remove('text-slate-300', 'font-semibold');
+        btn.classList.add('bg-gradient-to-r', 'from-amber-400', 'to-[#B7D894]', 'text-[#202734]', 'font-bold');
+        activeSort = btn.getAttribute('data-sort') || 'salary';
+        applyFilters();
+      });
+    })(sortBtns[s]);
+  }
+
   for (var r = 0; r < regionBtns.length; r++) {
     (function(btn) {
       btn.addEventListener('click', function() {
@@ -814,6 +913,17 @@ export const CareerPage: FC<CareerPageProps> = ({
       searchQuery = '';
       activeRegion = 'all';
       activeRole = 'all';
+      activeSort = 'salary';
+
+      for (var s = 0; s < sortBtns.length; s++) {
+        if (s === 0) {
+          sortBtns[s].classList.add('bg-gradient-to-r', 'from-amber-400', 'to-[#B7D894]', 'text-[#202734]', 'font-bold');
+          sortBtns[s].classList.remove('text-slate-300', 'font-semibold');
+        } else {
+          sortBtns[s].classList.remove('bg-gradient-to-r', 'from-amber-400', 'to-[#B7D894]', 'text-[#202734]', 'font-bold');
+          sortBtns[s].classList.add('text-slate-300', 'font-semibold');
+        }
+      }
 
       for (var i = 0; i < regionBtns.length; i++) {
         if (i === 0) {
