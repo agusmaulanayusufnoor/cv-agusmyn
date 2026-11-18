@@ -88,6 +88,9 @@ export const CareerPage: FC<CareerPageProps> = ({
           content="Curated active career vacancies (≤ 14 days old) filtered through enterprise ATS whitelists and anti-scam security checks, tailored for Agus Maulana Yusuf Noor."
         />
 
+        {/* Favicon */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
         {/* Performance Preconnects for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -129,6 +132,7 @@ export const CareerPage: FC<CareerPageProps> = ({
             <a href={`/?lang=${lang}`} class="flex items-center gap-3.5 group">
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-[#B7D894]/70 shadow-md shadow-[#B7D894]/20 group-hover:scale-105 group-hover:border-[#E0F8C7] transition-all shrink-0 bg-[#202734]">
                 <picture>
+                  <source srcset="/profile-thumb.avif" type="image/avif" />
                   <source srcset="/profile-thumb.webp" type="image/webp" />
                   <img
                     src="/profile.jpg"
@@ -399,7 +403,7 @@ export const CareerPage: FC<CareerPageProps> = ({
               <div>
                 {t.showingText} <span id="filteredCount" class="text-[#E0F8C7] font-bold">{jobs.length}</span> {t.ofText} {totalVerified} {t.verifiedRoles}
               </div>
-              <div class="text-[11px] text-slate-500">
+              <div class="text-[11px] text-slate-400">
                 {fromCache ? '⚡ Fast Cached View' : '🌐 Fresh Sync'} • Updated {formattedUpdate}
               </div>
             </div>
@@ -478,7 +482,7 @@ export const CareerPage: FC<CareerPageProps> = ({
                       </svg>
                       {job.atsVendor ? `${job.atsVendor} ATS Verified` : t.antiScamPassedBadge}
                     </span>
-                    <span class="text-slate-500 text-[10px]">
+                    <span class="text-slate-400 text-[10px]">
                       Trust {job.trustScore}/100
                     </span>
                   </div>
@@ -573,8 +577,8 @@ export const CareerPage: FC<CareerPageProps> = ({
           </div>
 
           {/* MINIMALIST FOOTER */}
-          <footer class="mt-16 py-8 text-center text-xs text-slate-500 space-y-3 border-t border-white/5">
-            <div class="flex flex-wrap justify-center items-center gap-4 text-xs font-mono text-slate-400">
+          <footer class="mt-16 py-8 text-center text-xs text-slate-400 space-y-3 border-t border-white/5">
+            <div class="flex flex-wrap justify-center items-center gap-4 text-xs font-mono text-slate-300">
               <a href={`mailto:${profile.email}`} class="hover:text-[#E0F8C7] transition">{profile.email}</a>
               <span>•</span>
               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-[#E0F8C7] transition">LinkedIn</a>
@@ -583,7 +587,7 @@ export const CareerPage: FC<CareerPageProps> = ({
               <span>•</span>
               <a href={`/?lang=${lang}`} class="hover:text-[#E0F8C7] transition">CV / Resume</a>
             </div>
-            <p class="text-slate-500 text-[11px]">
+            <p class="text-slate-400 text-[11px]">
               © {new Date().getFullYear()} {profile.name} — Verified Anti-Scam Career Engine
             </p>
           </footer>

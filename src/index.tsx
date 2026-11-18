@@ -13,6 +13,21 @@ const resolveLang = (queryLang?: string): Language => {
   return queryLang?.toLowerCase() === 'id' ? 'id' : 'en';
 };
 
+// Route file statis favicon, foto profil & style.css
+app.get('/favicon.svg', (c) => {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#202734"/><path d="M16 6L8 24h4l1.6-4h4.8l1.6 4h4L16 6zm-1.2 11L16 11.5 17.2 17h-2.4z" fill="#B7D894"/></svg>`;
+  return new Response(svg, {
+    headers: {
+      'Content-Type': 'image/svg+xml',
+      'Cache-Control': 'public, max-age=31536000, immutable',
+    },
+  });
+});
+
+app.get('/favicon.ico', (c) => {
+  return c.redirect('/favicon.svg', 301);
+});
+
 // Route file statis foto profil & style.css (fallback aman untuk Bun lokal; di Cloudflare dilayani otomatis oleh assets)
 app.get('/profile.webp', (c) => {
   if (typeof Bun !== 'undefined' && typeof Bun.file === 'function') {

@@ -154,6 +154,9 @@ CERTIFICATIONS & CREDENTIALS
           content="Official ATS score, parsing audit report, and keyword compatibility benchmark for Agus Maulana Yusuf Noor."
         />
 
+        {/* Favicon */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
         {/* Performance Preconnects for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -194,6 +197,7 @@ CERTIFICATIONS & CREDENTIALS
             <a href={`/?lang=${lang}`} class="flex items-center gap-3.5 group">
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-[#B7D894]/70 shadow-md shadow-[#B7D894]/20 group-hover:scale-105 group-hover:border-[#E0F8C7] transition-all shrink-0 bg-[#202734]">
                 <picture>
+                  <source srcset="/profile-thumb.avif" type="image/avif" />
                   <source srcset="/profile-thumb.webp" type="image/webp" />
                   <img
                     src="/profile.jpg"
@@ -532,8 +536,8 @@ CERTIFICATIONS & CREDENTIALS
           </section>
 
           {/* MINIMALIST FOOTER */}
-          <footer class="mt-16 py-8 text-center text-xs text-slate-500 space-y-3 border-t border-white/5">
-            <div class="flex flex-wrap justify-center items-center gap-4 text-xs font-mono text-slate-400">
+          <footer class="mt-16 py-8 text-center text-xs text-slate-400 space-y-3 border-t border-white/5">
+            <div class="flex flex-wrap justify-center items-center gap-4 text-xs font-mono text-slate-300">
               <a href={`mailto:${profile.email}`} class="hover:text-[#E0F8C7] transition">{profile.email}</a>
               <span>•</span>
               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-[#E0F8C7] transition">LinkedIn</a>
@@ -544,7 +548,7 @@ CERTIFICATIONS & CREDENTIALS
               <span>•</span>
               <a href={`/career?lang=${lang}`} class="hover:text-[#E0F8C7] transition">{t.navCareer}</a>
             </div>
-            <p class="text-slate-500 text-[11px]">
+            <p class="text-slate-400 text-[11px]">
               © {new Date().getFullYear()} {profile.name} — Verified ATS Compliance Architecture
             </p>
           </footer>

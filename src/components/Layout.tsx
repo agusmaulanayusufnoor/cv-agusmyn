@@ -88,12 +88,15 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
           })
         }} />
 
+        {/* Favicon */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
         {/* Performance Preconnects for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Preload High-Priority LCP Hero WebP Image for Instant Discovery */}
-        <link rel="preload" as="image" href="/profile.webp" type="image/webp" fetchpriority="high" />
+        {/* Preload High-Priority LCP Hero AVIF Image for Instant Discovery */}
+        <link rel="preload" as="image" href="/profile.avif" type="image/avif" fetchpriority="high" />
 
         {/* 100% Inlined Production CSS — Zero Render-Blocking HTTP Roundtrips */}
         <style dangerouslySetInnerHTML={{ __html: compiledCss }} />
@@ -137,6 +140,7 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
             <a href="/" class="flex items-center gap-3.5 group">
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-[#B7D894]/70 shadow-md shadow-[#B7D894]/20 group-hover:scale-105 group-hover:border-[#E0F8C7] transition-all shrink-0 bg-[#202734]">
                 <picture>
+                  <source srcset="/profile-thumb.avif" type="image/avif" />
                   <source srcset="/profile-thumb.webp" type="image/webp" />
                   <img
                     src="/profile.jpg"
@@ -344,6 +348,7 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                     {/* Image Surface Frame */}
                     <div class="relative rounded-2xl overflow-hidden border border-white/15 bg-[#202734] shadow-2xl">
                       <picture>
+                        <source srcset="/profile.avif" type="image/avif" />
                         <source srcset="/profile.webp" type="image/webp" />
                         <img
                           src="/profile.jpg"
@@ -454,9 +459,9 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                     <div class="grid grid-cols-1 gap-3.5">
                       {Object.entries(skills).map(([category, items]) => (
                         <div class="glass-card spotlight-card p-3.5 sm:p-4 rounded-xl">
-                          <h4 class="text-xs font-mono font-semibold text-[#B7D894] uppercase tracking-wider mb-2">
+                          <h3 class="text-xs font-mono font-semibold text-[#B7D894] uppercase tracking-wider mb-2">
                             {category}
-                          </h4>
+                          </h3>
                           <div class="flex flex-wrap gap-1.5 print:block">
                             {items.map((skill, sIdx) => (
                               <span class="skill-tag px-2.5 py-1 text-xs bg-[#202734]/80 border border-white/10 rounded-lg text-slate-200 font-medium hover:border-[#B7D894]/50 transition print:bg-transparent print:border-none print:p-0 print:text-gray-900">
@@ -643,7 +648,7 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                         ✦ {labels.filterGithub} ({repos.length})
                       </h3>
                       {lastFetched && (
-                        <span class="text-[10px] font-mono text-slate-500">
+                        <span class="text-[10px] font-mono text-slate-400">
                           {labels.updated}: {formatDate(lastFetched)}
                         </span>
                       )}
@@ -662,7 +667,7 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                               <span class="font-bold text-sm text-white group-hover:text-[#E0F8C7] transition-colors truncate" title={repo.name}>
                                 {repo.name}
                               </span>
-                              <span class="text-xs text-slate-500 group-hover:text-[#B7D894] transition-colors">↗</span>
+                              <span class="text-xs text-slate-400 group-hover:text-[#B7D894] transition-colors">↗</span>
                             </div>
                             <p class="text-xs text-slate-400 mt-1.5 line-clamp-2 leading-relaxed">
                               {repo.description || (lang === 'id' ? 'Repositori publik aktif' : 'Active public repository')}
@@ -675,9 +680,9 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                                 {repo.language}
                               </span>
                             ) : (
-                              <span class="text-slate-500">-</span>
+                              <span class="text-slate-400">-</span>
                             )}
-                            <span class="text-slate-500 text-[10px]">
+                            <span class="text-slate-400 text-[10px]">
                               {formatDate(repo.updated_at)}
                             </span>
                           </div>
@@ -692,8 +697,8 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
           </main>
 
           {/* MINIMALIST FOOTER */}
-          <footer id="contact" class="no-print mt-12 py-8 text-center text-xs text-slate-500 space-y-3">
-            <div class="flex flex-wrap justify-center items-center gap-4 text-xs font-mono text-slate-400">
+          <footer id="contact" class="no-print mt-12 py-8 text-center text-xs text-slate-400 space-y-3">
+            <div class="flex flex-wrap justify-center items-center gap-4 text-xs font-mono text-slate-300">
               <a href={`mailto:${profile.email}`} class="hover:text-[#E0F8C7] transition">{profile.email}</a>
               <span>•</span>
               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-[#E0F8C7] transition">LinkedIn</a>
@@ -702,7 +707,7 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
               <span>•</span>
               <a href={profile.website} target="_blank" rel="noopener noreferrer" class="hover:text-[#E0F8C7] transition">bprjabar.com</a>
             </div>
-            <p class="text-slate-500 text-[11px]">
+            <p class="text-slate-400 text-[11px]">
               © {new Date().getFullYear()} {profile.name}
             </p>
           </footer>
