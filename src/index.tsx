@@ -1,7 +1,9 @@
 import { Hono } from 'hono';
 import { CvPage } from './components/Layout';
+import { CareerPage } from './components/CareerPage';
 import { cvDataByLang, type Language } from './data/cv';
 import { getGitHubRepos } from './services/github';
+import { getVerifiedCareerJobs } from './services/career';
 
 const app = new Hono();
 
@@ -61,6 +63,30 @@ app.get('/api/cv', async (c) => {
 // Route API Khusus GitHub Repositories
 app.get('/api/github/repos', async (c) => {
   const result = await getGitHubRepos();
+  return c.json(result);
+});
+
+// Route Career: Render halaman Peluang Karir Terverifikasi & Anti-Penipuan (≤ 14 Hari)
+app.get('/career', async (c) => {
+  const lang = resolveLang(c.req.query('lang'));
+  const forceRefresh = c.req.query('refresh') === 'true';
+  const { jobs, totalVerified, fromCache, lastUpdated } = await getVerifiedCareerJobs(forceRefresh);
+
+  return c.html(
+    <CareerPage
+      lang={lang}
+      jobs={jobs}
+      totalVerified={totalVerified}
+      fromCache={fromCache}
+      lastUpdated={lastUpdated}
+    />
+  );
+});
+
+// Route API Career: Mengembalikan data lowongan terverifikasi (JSON)
+app.get('/api/career/jobs', async (c) => {
+  const forceRefresh = c.req.query('refresh') === 'true';
+  const result = await getVerifiedCareerJobs(forceRefresh);
   return c.json(result);
 });
 

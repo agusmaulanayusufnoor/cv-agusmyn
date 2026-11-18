@@ -268,6 +268,13 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
               <a href="#experience" class="hover:text-[#E0F8C7] transition-colors">{labels.navExperience}</a>
               <a href="#projects" class="hover:text-[#E0F8C7] transition-colors">{labels.navProjects}</a>
               <a href="#contact" class="hover:text-[#E0F8C7] transition-colors">{labels.navContact}</a>
+              <a
+                href={`/career?lang=${lang}`}
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#B7D894]/15 border border-[#B7D894]/35 text-[#E0F8C7] hover:bg-[#B7D894]/25 hover:border-[#B7D894]/60 transition-all text-sm font-bold shadow-xs"
+              >
+                <span>{labels.navCareer || 'Career'}</span>
+                <span class="w-2 h-2 rounded-full bg-[#B7D894] animate-pulse"></span>
+              </a>
             </nav>
 
             {/* Actions: Language Toggle & Quick Buttons */}
