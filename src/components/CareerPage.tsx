@@ -399,15 +399,26 @@ export const CareerPage: FC<CareerPageProps> = ({
               </button>
             </div>
 
-            {/* Role Track Filter Buttons */}
+            {/* Role Track & Portal Filter Buttons */}
             <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-white/5">
-              <span class="text-xs font-mono text-slate-400 mr-1">Role Track:</span>
+              <span class="text-xs font-mono text-slate-400 mr-1">Role / Portal:</span>
               <button
                 type="button"
                 data-role="all"
                 class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#36415A] text-white border border-[#B7D894]/40 transition cursor-pointer"
               >
                 {t.filterRoleAll}
+              </button>
+              <button
+                type="button"
+                data-role="linkedin"
+                class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734]/80 text-[#70B5F9] hover:text-white border border-[#0A66C2]/40 hover:border-[#0A66C2] transition cursor-pointer flex items-center gap-1.5 shadow-xs"
+                title="Filter 79+ lowongan terverifikasi langsung dari portal LinkedIn Talent"
+              >
+                <svg class="w-3.5 h-3.5 fill-[#0A66C2]" viewBox="0 0 24 24">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                </svg>
+                <span>LinkedIn Jobs (75+)</span>
               </button>
               <button
                 type="button"
@@ -471,128 +482,150 @@ export const CareerPage: FC<CareerPageProps> = ({
 
           {/* JOB LISTINGS GRID */}
           <main id="jobGridContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {jobs.map((job, idx) => (
-              <article
-                key={job.id}
-                class="job-card glass-card rounded-2xl p-6 flex flex-col justify-between space-y-4"
-                style={idx >= 10 ? 'display: none;' : ''}
-                data-region={job.region}
-                data-role={job.roleCategory}
-                data-salary={job.salaryNumeric || 0}
-                data-match={job.matchScore || 0}
-                data-date={new Date(job.postedAt).getTime() || 0}
-                data-search={`${job.title} ${job.company} ${job.location} ${job.salary || ''} ${job.matchedSkills.join(' ')} ${job.roleCategory}`.toLowerCase()}
-              >
-                {/* Header: Company & Badges */}
-                <div class="space-y-2.5">
-                  <div class="flex flex-wrap items-center justify-between gap-2.5">
-                    {/* Left: Match & Salary Badges */}
-                    <div class="flex flex-wrap items-center gap-2">
-                      {/* Match Score Badge */}
-                      <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#B7D894]/20 border border-[#B7D894]/40 text-[#E0F8C7] text-xs font-mono font-bold">
-                        <svg class="w-3.5 h-3.5 text-[#B7D894]" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                        </svg>
-                        <span>{job.matchScore}% Match</span>
+            {jobs.map((job, idx) => {
+              const isLinkedIn = job.applyUrl.includes('linkedin.com') || (job.atsVendor && job.atsVendor.toLowerCase().includes('linkedin'));
+
+              return (
+                <article
+                  key={job.id}
+                  class="job-card glass-card rounded-2xl p-6 flex flex-col justify-between space-y-4"
+                  style={idx >= 10 ? 'display: none;' : ''}
+                  data-region={job.region}
+                  data-role={job.roleCategory}
+                  data-is-linkedin={isLinkedIn ? 'true' : 'false'}
+                  data-salary={job.salaryNumeric || 0}
+                  data-match={job.matchScore || 0}
+                  data-date={new Date(job.postedAt).getTime() || 0}
+                  data-search={`${job.title} ${job.company} ${job.location} ${job.salary || ''} ${job.matchedSkills.join(' ')} ${job.roleCategory} ${job.atsVendor || ''} ${job.source || ''} ${isLinkedIn ? 'linkedin linkedin.com' : ''}`.toLowerCase()}
+                >
+                  {/* Header: Company & Badges */}
+                  <div class="space-y-2.5">
+                    <div class="flex flex-wrap items-center justify-between gap-2.5">
+                      {/* Left: Match & Salary & Portal Badges */}
+                      <div class="flex flex-wrap items-center gap-2">
+                        {/* Match Score Badge */}
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#B7D894]/20 border border-[#B7D894]/40 text-[#E0F8C7] text-xs font-mono font-bold">
+                          <svg class="w-3.5 h-3.5 text-[#B7D894]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                          </svg>
+                          <span>{job.matchScore}% Match</span>
+                        </div>
+
+                        {/* LinkedIn Official Badge */}
+                        {isLinkedIn && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A66C2]/20 border border-[#0A66C2]/45 text-[#70B5F9] text-xs font-mono font-bold shadow-xs">
+                            <svg class="w-3.5 h-3.5 fill-[#0A66C2]" viewBox="0 0 24 24">
+                              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                            </svg>
+                            <span>LinkedIn Job</span>
+                          </div>
+                        )}
+
+                        {/* Prominent Salary Badge */}
+                        {job.salary && (
+                          <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 text-xs font-mono font-bold">
+                            <span>💰</span>
+                            <span>{job.salary}</span>
+                          </div>
+                        )}
                       </div>
 
-                      {/* Prominent Salary Badge */}
-                      {job.salary && (
-                        <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 text-xs font-mono font-bold">
-                          <span>💰</span>
-                          <span>{job.salary}</span>
-                        </div>
-                      )}
+                      {/* Freshness Badge (≤ 14 Days) */}
+                      <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#36415A]/80 border border-white/10 text-slate-300 text-xs font-mono">
+                        <span>⚡</span>
+                        <span>{job.ageDays === 0 ? 'Today' : `${job.ageDays}d ago`}</span>
+                      </div>
                     </div>
 
-                    {/* Freshness Badge (≤ 14 Days) */}
-                    <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#36415A]/80 border border-white/10 text-slate-300 text-xs font-mono">
-                      <span>⚡</span>
-                      <span>{job.ageDays === 0 ? 'Today' : `${job.ageDays}d ago`}</span>
+                    {/* Job Title & Company */}
+                    <div>
+                      <h2 class="text-xl font-bold text-white tracking-tight group-hover:text-[#E0F8C7] transition-colors leading-snug">
+                        {job.title}
+                      </h2>
+                      <div class="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-slate-400">
+                        <span class="font-semibold text-slate-200">{job.company}</span>
+                        <span>•</span>
+                        <span class="text-slate-300 font-mono">{job.location}</span>
+                        <span>•</span>
+                        <span class="px-2 py-0.5 rounded-md bg-[#202734] border border-white/10 text-[11px] font-mono text-[#B7D894]">
+                          {job.regionLabel}
+                        </span>
+                      </div>
                     </div>
+
+                    {/* Summary Snippet */}
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3">
+                      {job.summarySnippet}
+                    </p>
                   </div>
 
-                  {/* Job Title & Company */}
-                  <div>
-                    <h2 class="text-xl font-bold text-white tracking-tight group-hover:text-[#E0F8C7] transition-colors leading-snug">
-                      {job.title}
-                    </h2>
-                    <div class="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-slate-400">
-                      <span class="font-semibold text-slate-200">{job.company}</span>
-                      <span>•</span>
-                      <span class="text-slate-300 font-mono">{job.location}</span>
-                      <span>•</span>
-                      <span class="px-2 py-0.5 rounded-md bg-[#202734] border border-white/10 text-[11px] font-mono text-[#B7D894]">
-                        {job.regionLabel}
+                  {/* Skills & Trust Verification Layer */}
+                  <div class="space-y-3 pt-3 border-t border-white/5">
+                    {/* Matched Skills Pills */}
+                    <div class="flex flex-wrap gap-1.5">
+                      {job.matchedSkills.map((sk) => (
+                        <span
+                          key={sk}
+                          class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-[#36415A]/60 text-[#E0F8C7] border border-[#B7D894]/25"
+                        >
+                          {sk}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Trust Safety Label */}
+                    <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                      <span class="inline-flex items-center gap-1.5 text-emerald-300">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        {job.atsVendor ? `${job.atsVendor} ATS Verified` : t.antiScamPassedBadge}
+                      </span>
+                      <span class="text-slate-400 text-[10px]">
+                        Trust {job.trustScore}/100
                       </span>
                     </div>
-                  </div>
 
-                  {/* Summary Snippet */}
-                  <p class="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3">
-                    {job.summarySnippet}
-                  </p>
-                </div>
-
-                {/* Skills & Trust Verification Layer */}
-                <div class="space-y-3 pt-3 border-t border-white/5">
-                  {/* Matched Skills Pills */}
-                  <div class="flex flex-wrap gap-1.5">
-                    {job.matchedSkills.map((sk) => (
-                      <span
-                        key={sk}
-                        class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-[#36415A]/60 text-[#E0F8C7] border border-[#B7D894]/25"
+                    {/* Action Buttons: Apply Directly / Apply on LinkedIn + Copy Quick Pitch */}
+                    <div class="flex items-center gap-2 pt-1">
+                      {/* Direct Apply Button */}
+                      <a
+                        href={job.applyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={isLinkedIn
+                          ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#0A66C2] hover:bg-[#004182] text-white transition shadow-md shadow-[#0A66C2]/30 flex items-center justify-center gap-1.5"
+                          : "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-[#B7D894] to-[#E0F8C7] text-[#202734] hover:brightness-105 transition shadow-md shadow-[#B7D894]/20 flex items-center justify-center gap-1.5"}
                       >
-                        {sk}
-                      </span>
-                    ))}
-                  </div>
+                        {isLinkedIn && (
+                          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                          </svg>
+                        )}
+                        <span>{isLinkedIn ? (isId ? 'Lamar di LinkedIn' : 'Apply on LinkedIn') : t.applyButton}</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
 
-                  {/* Trust Safety Label */}
-                  <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
-                    <span class="inline-flex items-center gap-1.5 text-emerald-300">
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                      {job.atsVendor ? `${job.atsVendor} ATS Verified` : t.antiScamPassedBadge}
-                    </span>
-                    <span class="text-slate-400 text-[10px]">
-                      Trust {job.trustScore}/100
-                    </span>
+                      {/* Copy Quick Pitch Button */}
+                      <button
+                        type="button"
+                        data-job-title={job.title}
+                        data-job-company={job.company}
+                        class="copy-pitch-btn px-3 py-2 rounded-xl text-xs font-semibold bg-[#202734] hover:bg-[#36415A] text-slate-300 hover:text-white border border-white/10 transition flex items-center gap-1.5 cursor-pointer"
+                        title={t.copyPitchButton}
+                      >
+                        <svg class="w-4 h-4 text-[#B7D894]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        <span class="hidden sm:inline">{t.copyPitchButton}</span>
+                      </button>
+                    </div>
                   </div>
-
-                  {/* Action Buttons: Apply Directly + Copy Quick Pitch */}
-                  <div class="flex items-center gap-2 pt-1">
-                    {/* Direct Apply Button */}
-                    <a
-                      href={job.applyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-[#B7D894] to-[#E0F8C7] text-[#202734] hover:brightness-105 transition shadow-md shadow-[#B7D894]/20 flex items-center justify-center gap-1.5"
-                    >
-                      <span>{t.applyButton}</span>
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
-
-                    {/* Copy Quick Pitch Button */}
-                    <button
-                      type="button"
-                      data-job-title={job.title}
-                      data-job-company={job.company}
-                      class="copy-pitch-btn px-3 py-2 rounded-xl text-xs font-semibold bg-[#202734] hover:bg-[#36415A] text-slate-300 hover:text-white border border-white/10 transition flex items-center gap-1.5 cursor-pointer"
-                      title={t.copyPitchButton}
-                    >
-                      <svg class="w-4 h-4 text-[#B7D894]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                      </svg>
-                      <span class="hidden sm:inline">{t.copyPitchButton}</span>
-                    </button>
-                  </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </main>
 
           {/* PAGINATION CONTROLS */}
@@ -719,6 +752,8 @@ export const CareerPage: FC<CareerPageProps> = ({
         matchesRole = true;
       } else if (activeRole === 'ai') {
         matchesRole = /(ai|llm|agent|agentic|prompt|genai|vibe|gpt|claude|gemini)/i.test(cardSearch);
+      } else if (activeRole === 'linkedin') {
+        matchesRole = (card.getAttribute('data-is-linkedin') === 'true' || cardSearch.indexOf('linkedin') !== -1);
       } else {
         matchesRole = (cardRole === activeRole);
       }
