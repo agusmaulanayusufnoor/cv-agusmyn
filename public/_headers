@@ -35,3 +35,11 @@
   Cache-Control: public, max-age=86400, stale-while-revalidate=3600
   Access-Control-Allow-Origin: *
   Content-Disposition: inline; filename="Agus-Maulana-Yusuf-Noor-Resume-ID.pdf"
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *

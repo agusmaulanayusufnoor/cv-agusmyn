@@ -87,6 +87,18 @@ export const CareerPage: FC<CareerPageProps> = ({
           name="description"
           content="Curated active career vacancies (≤ 14 days old) filtered through enterprise ATS whitelists and anti-scam security checks, tailored for Agus Maulana Yusuf Noor."
         />
+        <link rel="canonical" href={`https://agusmyn.my.id/career${lang === 'id' ? '?lang=id' : ''}`} />
+
+        {/* Social / Open Graph & Twitter Cards */}
+        <meta property="og:title" content={t.pageTitle} />
+        <meta property="og:description" content="Curated active career vacancies (≤ 14 days old) filtered through enterprise ATS whitelists and anti-scam security checks, tailored for Agus Maulana Yusuf Noor." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://agusmyn.my.id/career" />
+        <meta property="og:image" content="https://agusmyn.my.id/profile.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={t.pageTitle} />
+        <meta name="twitter:description" content="Curated active career vacancies (≤ 14 days old) filtered through enterprise ATS whitelists and anti-scam security checks, tailored for Agus Maulana Yusuf Noor." />
+        <meta name="twitter:image" content="https://agusmyn.my.id/profile.jpg" />
 
         {/* Favicon */}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

@@ -54,6 +54,19 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{labels.pageTitle}</title>
+        <meta name="description" content={labels.metaDescription} />
+        <link rel="canonical" href={`https://agusmyn.my.id${lang === 'id' ? '?lang=id' : ''}`} />
+
+        {/* Social / Open Graph & Twitter Cards */}
+        <meta property="og:title" content={labels.pageTitle} />
+        <meta property="og:description" content={labels.metaDescription} />
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content="https://agusmyn.my.id" />
+        <meta property="og:image" content="https://agusmyn.my.id/profile.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={labels.pageTitle} />
+        <meta name="twitter:description" content={labels.metaDescription} />
+        <meta name="twitter:image" content="https://agusmyn.my.id/profile.jpg" />
 
         {/* Structured Data (Schema.org JSON-LD for ATS & AI Recruiters) */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{

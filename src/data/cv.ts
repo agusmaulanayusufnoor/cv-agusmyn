@@ -284,6 +284,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
 export const uiLabels: Record<Language, Record<string, string>> = {
   en: {
     pageTitle: "Agus Maulana — Curriculum Vitae & Portfolio",
+    metaDescription: "Curriculum Vitae and Portfolio of Agus Maulana Yusuf Noor — Head of IT, Backend & Full-Stack Engineer, AI & Vibe Coding practitioner with 15+ years enterprise experience.",
     navAbout: "About",
     navExperience: "Experience",
     navProjects: "Projects",
@@ -314,6 +315,7 @@ export const uiLabels: Record<Language, Record<string, string>> = {
   },
   id: {
     pageTitle: "Agus Maulana — Portofolio & Curriculum Vitae",
+    metaDescription: "Portofolio dan Curriculum Vitae Agus Maulana Yusuf Noor — Head of IT, Backend & Full-Stack Engineer, praktisi AI & Vibe Coding dengan pengalaman enterprise 15+ tahun.",
     navAbout: "Tentang",
     navExperience: "Pengalaman",
     navProjects: "Proyek",

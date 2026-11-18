@@ -82,12 +82,50 @@ app.get('/css/style.css', (c) => {
   return c.notFound();
 });
 
+// Helper untuk merender response HTML dengan deklarasi <!DOCTYPE html> standar W3C (mencegah quirks-mode)
+const renderHtml = (c: any, jsxNode: any) => {
+  return c.html('<!DOCTYPE html>' + jsxNode);
+};
+
+// Route SEO: robots.txt & sitemap.xml
+app.get('/robots.txt', (c) => {
+  const content = `User-agent: *\nAllow: /\nSitemap: https://agusmyn.my.id/sitemap.xml\n`;
+  c.header('Content-Type', 'text/plain; charset=utf-8');
+  c.header('Cache-Control', 'public, max-age=86400');
+  return c.text(content);
+});
+
+app.get('/sitemap.xml', (c) => {
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://agusmyn.my.id/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://agusmyn.my.id/career</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://agusmyn.my.id/ats</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>`;
+  c.header('Content-Type', 'application/xml; charset=utf-8');
+  c.header('Cache-Control', 'public, max-age=86400');
+  return c.body(xml);
+});
+
 // Route Utama: Render halaman CV & Portofolio editorial estetik
 app.get('/', async (c) => {
   const lang = resolveLang(c.req.query('lang'));
   const { repos, fromCache, lastFetched } = await getGitHubRepos();
 
-  return c.html(
+  return renderHtml(
+    c,
     <CvPage
       lang={lang}
       repos={repos}
@@ -128,7 +166,8 @@ app.get('/career', async (c) => {
   const forceRefresh = c.req.query('refresh') === 'true';
   const { jobs, totalVerified, fromCache, lastUpdated } = await getVerifiedCareerJobs(forceRefresh);
 
-  return c.html(
+  return renderHtml(
+    c,
     <CareerPage
       lang={lang}
       jobs={jobs}
@@ -149,12 +188,12 @@ app.get('/api/career/jobs', async (c) => {
 // Route ATS Scorecard & Verification Report (Terbuka untuk HR & Recruiters)
 app.get('/ats', (c) => {
   const lang = resolveLang(c.req.query('lang'));
-  return c.html(<AtsPage lang={lang} />);
+  return renderHtml(c, <AtsPage lang={lang} />);
 });
 
 app.get('/ats-score', (c) => {
   const lang = resolveLang(c.req.query('lang'));
-  return c.html(<AtsPage lang={lang} />);
+  return renderHtml(c, <AtsPage lang={lang} />);
 });
 
 // Route Export PDF: Menghasilkan resume PDF berstandar ATS murni (vektor, 100% parseable, bukan print html)
