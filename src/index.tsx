@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { CvPage } from './components/Layout';
 import { CareerPage } from './components/CareerPage';
+import { AtsPage } from './components/AtsPage';
 import { cvDataByLang, type Language } from './data/cv';
 import { getGitHubRepos } from './services/github';
 import { getVerifiedCareerJobs } from './services/career';
@@ -88,6 +89,17 @@ app.get('/api/career/jobs', async (c) => {
   const forceRefresh = c.req.query('refresh') === 'true';
   const result = await getVerifiedCareerJobs(forceRefresh);
   return c.json(result);
+});
+
+// Route ATS Scorecard & Verification Report (Terbuka untuk HR & Recruiters)
+app.get('/ats', (c) => {
+  const lang = resolveLang(c.req.query('lang'));
+  return c.html(<AtsPage lang={lang} />);
+});
+
+app.get('/ats-score', (c) => {
+  const lang = resolveLang(c.req.query('lang'));
+  return c.html(<AtsPage lang={lang} />);
 });
 
 export default app;

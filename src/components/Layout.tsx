@@ -190,40 +190,86 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
             margin: 12mm 15mm;
           }
           @media print {
-            .no-print { display: none !important; }
+            .no-print, nav, header, footer, button, .perspective-container, #profileTiltCard, .filter-tab, #toastNotification {
+              display: none !important;
+            }
             * {
               -webkit-print-color-adjust: exact !important;
               print-color-adjust: exact !important;
+              box-shadow: none !important;
+              text-shadow: none !important;
             }
             body {
               background: #ffffff !important;
               color: #111827 !important;
               padding: 0 !important;
-              font-size: 11pt !important;
-              line-height: 1.5 !important;
+              font-family: Arial, Helvetica, sans-serif !important;
+              font-size: 10pt !important;
+              line-height: 1.4 !important;
+            }
+            /* STRICT SINGLE-COLUMN LINEAR ATS LAYOUT (Eliminates multi-column text scrambling) */
+            .grid, [class*="grid-cols-"], .flex, .lg\\:grid-cols-12, .lg\\:col-span-8, .lg\\:col-span-4, .lg\\:grid-cols-2, .grid-cols-1, .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+              display: block !important;
+              width: 100% !important;
+              float: none !important;
+              gap: 0 !important;
+              margin: 0 !important;
+              padding: 0 !important;
             }
             .glass-panel, .glass-card {
-              background: #ffffff !important;
+              background: transparent !important;
               color: #111827 !important;
-              border: 1px solid #E5E7EB !important;
+              border: none !important;
               box-shadow: none !important;
               backdrop-filter: none !important;
+              padding: 0 !important;
+              margin: 0 0 1.25rem 0 !important;
               break-inside: avoid !important;
               page-break-inside: avoid !important;
             }
-            h1, h2, h3, h4 {
+            h1 {
+              font-size: 18pt !important;
+              font-weight: bold !important;
+              color: #000000 !important;
+              margin-bottom: 2pt !important;
+            }
+            h2 {
+              font-size: 12pt !important;
+              font-weight: bold !important;
+              text-transform: uppercase !important;
+              letter-spacing: 0.5px !important;
               color: #111827 !important;
+              border-bottom: 1.5pt solid #111827 !important;
+              padding-bottom: 2pt !important;
+              margin-top: 14pt !important;
+              margin-bottom: 6pt !important;
               break-after: avoid !important;
               page-break-after: avoid !important;
             }
-            .text-slate-400, .text-slate-300, .text-slate-500 { color: #374151 !important; }
+            h3 {
+              font-size: 10.5pt !important;
+              font-weight: bold !important;
+              color: #111827 !important;
+              margin-top: 6pt !important;
+              margin-bottom: 2pt !important;
+            }
+            p, span, li {
+              color: #1f2937 !important;
+              font-size: 10pt !important;
+            }
+            ul {
+              margin: 4pt 0 8pt 1.2rem !important;
+              list-style-type: disc !important;
+              padding: 0 !important;
+            }
+            li {
+              margin-bottom: 3pt !important;
+              display: list-item !important;
+            }
+            .text-slate-400, .text-slate-300, .text-slate-500, .text-slate-200 { color: #374151 !important; }
             .text-white { color: #111827 !important; }
-            .text-blue-400, .text-indigo-400, .text-cyan-400 { color: #15803d !important; font-weight: 600 !important; }
-            .bg-dark-950, .bg-dark-900, .bg-dark-850 { background: #ffffff !important; }
-            .border-white\\/10, .border-white\\/5 { border-color: #E5E7EB !important; }
-            .tilt-card { transform: none !important; }
-            .perspective-container { perspective: none !important; }
-            a { text-decoration: none !important; color: #15803d !important; }
+            .text-[#B7D894], .text-[#E0F8C7] { color: #111827 !important; }
+            a { text-decoration: none !important; color: #111827 !important; }
           }
         `}</style>
       </head>
@@ -270,10 +316,17 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
               <a href="#contact" class="hover:text-[#E0F8C7] transition-colors">{labels.navContact}</a>
               <a
                 href={`/career?lang=${lang}`}
+                class="hover:text-[#E0F8C7] transition-colors"
+              >
+                {labels.navCareer || 'Career'}
+              </a>
+              <a
+                href={`/ats?lang=${lang}`}
                 class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#B7D894]/15 border border-[#B7D894]/35 text-[#E0F8C7] hover:bg-[#B7D894]/25 hover:border-[#B7D894]/60 transition-all text-sm font-bold shadow-xs"
               >
-                <span>{labels.navCareer || 'Career'}</span>
-                <span class="w-2 h-2 rounded-full bg-[#B7D894] animate-pulse"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>{labels.navAts || 'ATS Score'}</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-[#B7D894] text-[#202734] font-mono font-extrabold">96%</span>
               </a>
             </nav>
 

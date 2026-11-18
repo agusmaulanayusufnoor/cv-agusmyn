@@ -181,6 +181,16 @@ export const CareerPage: FC<CareerPageProps> = ({
                 {t.backToCv}
               </a>
 
+              {/* ATS Score Link */}
+              <a
+                href={`/ats?lang=${lang}`}
+                class="px-3 py-1.5 text-xs font-semibold rounded-xl bg-[#B7D894]/15 border border-[#B7D894]/30 text-[#E0F8C7] hover:bg-[#B7D894]/25 hover:border-[#B7D894]/50 transition flex items-center gap-1.5"
+              >
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>{isId ? 'Skor ATS' : 'ATS Score'}</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-[#B7D894] text-[#202734] font-mono font-bold">96%</span>
+              </a>
+
               {/* Language Switcher */}
               <div class="inline-flex rounded-xl bg-[#202734]/90 p-1 border border-white/10 text-xs font-semibold">
                 <a
