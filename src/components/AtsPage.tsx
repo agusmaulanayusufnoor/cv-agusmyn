@@ -84,6 +84,7 @@ Adept at bridging executive technical strategy with hands-on full-stack developm
 ================================================================================
 AREAS OF EXPERTISE & TECHNICAL SKILLS
 ================================================================================
+- AI & Vibe Coding: AI-Assisted Engineering (Vibe Coding), Agentic Workflows & Multi-Agent, LLM Integration (Gemini, Claude, OpenAI), Prompt Engineering, Cursor/Antigravity
 - Backend Engineering: Golang, Python, PHP (Laravel), TypeScript / Bun / Hono, Delphi, RESTful APIs, Microservices
 - Frontend & UI: Vue.js, Next.js, Inertia.js, Vuetify, Tailwind CSS
 - Databases & Storage: MySQL (High Availability, Master-Slave Replication, DBA, Query Optimization), Redis

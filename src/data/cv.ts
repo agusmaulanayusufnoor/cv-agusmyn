@@ -66,7 +66,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
       name: "Agus Maulana Yusuf Noor",
       firstName: "AGUS",
       lastName: "MAULANA",
-      title: "IT Department Head | Full-Stack & Backend Engineer | Linux SysAdmin & DBA",
+      title: "IT Department Head | Backend & Full-Stack Engineer | AI & Vibe Coding | Linux SysAdmin & DBA",
       category: "HEAD OF IT & LEAD ENGINEER",
       location: "Subang & Bandung, West Java",
       email: "agusmaulanayusufnoor@gmail.com",
@@ -75,9 +75,9 @@ export const cvDataByLang: Record<Language, CvContent> = {
       linkedin: "https://www.linkedin.com/in/agus-maulana-yusuf-noor/",
       website: "https://www.bprjabar.com",
       bioShort:
-        "IT Leader & Full-Stack Engineer based in West Java. Passionate about resilient banking architectures, Linux systems, and modern web engineering.",
+        "IT Leader, Full-Stack Engineer & AI Vibe Coding practitioner based in West Java. Passionate about resilient banking architectures, Linux systems, and modern AI-accelerated engineering.",
       summary:
-        "IT Leader and Full-Stack / Backend Engineer with 15+ years of experience in the banking & financial sector (PT BPR Jabar Perseroda). Proven track record in building enterprise web applications, managing high-availability Linux servers (Ubuntu/CentOS), MikroTik network infrastructure, and mission-critical MySQL databases with zero critical downtime. Adept at bridging executive technical strategy with hands-on full-stack development.",
+        "IT Leader and Full-Stack / Backend Engineer with 15+ years of experience in the banking & financial sector (PT BPR Jabar Perseroda) and active practitioner of modern AI & Vibe Coding paradigms. Proven track record in building enterprise web applications, accelerating software delivery 5x–10x via AI-assisted workflows, managing high-availability Linux servers (Ubuntu/CentOS), MikroTik network infrastructure, and mission-critical MySQL databases with zero critical downtime. Adept at bridging executive technical strategy with hands-on full-stack development.",
     },
     stats: [
       { value: "15+", label: "Years Experience" },
@@ -88,10 +88,11 @@ export const cvDataByLang: Record<Language, CvContent> = {
     meta: [
       { label: "Based in", value: "Subang & Bandung" },
       { label: "Experience", value: "15+ Years" },
-      { label: "Specialty", value: "Backend & SysAdmin" },
+      { label: "Specialty", value: "Backend, AI & SysAdmin" },
       { label: "Availability", value: "Open to Remote" },
     ],
     skills: {
+      "AI & Vibe Coding": ["AI-Assisted Engineering (Vibe Coding)", "Agentic Workflows & Multi-Agent", "LLM Integration (Gemini, Claude, OpenAI)", "Prompt Engineering & Cursor/Antigravity", "AI Code Refactoring & Automations"],
       "Backend & Languages": ["Golang", "Python", "PHP (Laravel)", "TypeScript / Bun / Hono", "Delphi"],
       "Frontend & UI": ["Vue.js", "Next.js", "Inertia.js", "Vuetify", "Tailwind CSS"],
       "Database & Storage": ["MySQL (Optimization, Replication, Disaster Recovery)", "Redis"],
@@ -174,7 +175,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
       name: "Agus Maulana Yusuf Noor",
       firstName: "AGUS",
       lastName: "MAULANA",
-      title: "Kepala Bagian IT | Full-Stack & Backend Engineer | Linux SysAdmin & DBA",
+      title: "Kepala Bagian IT | Backend & Full-Stack Engineer | AI & Vibe Coding | Linux SysAdmin & DBA",
       category: "KEPALA BAGIAN IT & LEAD ENGINEER",
       location: "Subang & Bandung, Jawa Barat",
       email: "agusmaulanayusufnoor@gmail.com",
@@ -183,9 +184,9 @@ export const cvDataByLang: Record<Language, CvContent> = {
       linkedin: "https://www.linkedin.com/in/agus-maulana-yusuf-noor/",
       website: "https://www.bprjabar.com",
       bioShort:
-        "Pemimpin IT & Full-Stack Engineer berbasis di Jawa Barat. Berfokus pada keandalan sistem perbankan, infrastruktur server Linux, dan rekayasa web modern.",
+        "Pemimpin IT, Full-Stack Engineer & praktisi AI Vibe Coding di Jawa Barat. Berfokus pada sistem perbankan tangguh, administrasi Linux, dan percepatan rekayasa berbantuan AI modern.",
       summary:
-        "Pemimpin IT dan Full-Stack / Backend Engineer berpengalaman 15+ tahun di sektor perbankan & keuangan (PT BPR Jabar Perseroda). Memiliki rekam jejak terbukti dalam membangun aplikasi web enterprise, mengelola server Linux ketersediaan tinggi (Ubuntu/CentOS), infrastruktur jaringan MikroTik, dan basis data MySQL misi-kritis tanpa downtime kritikal. Berpengalaman menyatukan strategi teknis manajemen dengan rekayasa perangkat lunak hands-on.",
+        "Pemimpin IT dan Full-Stack / Backend Engineer berpengalaman 15+ tahun di sektor perbankan & keuangan (PT BPR Jabar Perseroda) sekaligus praktisi aktif paradigma rekayasa modern AI & Vibe Coding. Memiliki rekam jejak teruji dalam membangun aplikasi web enterprise, melipatgandakan kecepatan deliveri software melalui alur kerja AI-assisted, mengelola server produksi Linux (Ubuntu/CentOS), infrastruktur jaringan MikroTik, serta database MySQL kritis dengan zero critical downtime. Berpengalaman menyatukan strategi teknis manajemen dengan rekayasa perangkat lunak hands-on.",
     },
     stats: [
       { value: "15+", label: "Tahun Pengalaman" },
@@ -196,10 +197,11 @@ export const cvDataByLang: Record<Language, CvContent> = {
     meta: [
       { label: "Domisili", value: "Subang & Bandung" },
       { label: "Pengalaman", value: "15+ Tahun" },
-      { label: "Fokus Utama", value: "Backend & SysAdmin" },
+      { label: "Fokus Utama", value: "Backend, AI & SysAdmin" },
       { label: "Status Kerja", value: "Terbuka Remote" },
     ],
     skills: {
+      "AI & Vibe Coding": ["Rekayasa Berbantuan AI (Vibe Coding)", "Workflow Multi-Agent & LLM", "Integrasi API Gemini & OpenAI", "Prompt Engineering & Tooling AI (Cursor/Antigravity)", "Otomatisasi Sistem Berbasis AI"],
       "Backend & Bahasa": ["Golang", "Python", "PHP (Laravel)", "TypeScript / Bun / Hono", "Delphi"],
       "Frontend & UI": ["Vue.js", "Next.js", "Inertia.js", "Vuetify", "Tailwind CSS"],
       "Basis Data & Storage": ["MySQL (Optimasi, Replikasi, Disaster Recovery)", "Redis"],

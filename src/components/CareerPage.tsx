@@ -369,6 +369,14 @@ export const CareerPage: FC<CareerPageProps> = ({
               </button>
               <button
                 type="button"
+                data-role="ai"
+                class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734]/80 text-slate-300 hover:text-white border border-white/10 transition cursor-pointer flex items-center gap-1.5"
+              >
+                <span>🤖</span>
+                <span>AI & Vibe Coding</span>
+              </button>
+              <button
+                type="button"
                 data-role="backend"
                 class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734]/80 text-slate-300 hover:text-white border border-white/10 transition cursor-pointer"
               >
@@ -395,6 +403,17 @@ export const CareerPage: FC<CareerPageProps> = ({
               >
                 {t.filterRoleFullstack}
               </button>
+            </div>
+
+            {/* Quick Pitch Explainer Card */}
+            <div class="px-3.5 py-2.5 rounded-xl bg-[#202734]/70 border border-[#B7D894]/25 text-xs text-slate-300 flex items-start sm:items-center gap-2.5">
+              <span class="text-base shrink-0">💡</span>
+              <p class="leading-relaxed">
+                <strong class="text-[#E0F8C7]">{isId ? 'Tips Tombol "Copy Quick Pitch":' : 'Quick Pitch Feature:'}</strong>{' '}
+                {isId
+                  ? 'Tombol di setiap kartu otomatis menyalin teks perkenalan formal berbobot tinggi yang disesuaikan dengan posisi tersebut. Tinggal paste (Ctrl+V) ke LinkedIn InMail Recruiter, chat HR, atau kolom cover letter!'
+                  : 'Instantly copies a tailored 2-sentence executive intro matching the job and company. Perfect for pasting directly into LinkedIn InMail, recruiter messages, or cover letters!'}
+              </p>
             </div>
 
             {/* Results Count Bar */}
@@ -519,6 +538,42 @@ export const CareerPage: FC<CareerPageProps> = ({
             ))}
           </main>
 
+          {/* PAGINATION CONTROLS */}
+          <nav
+            id="paginationNavContainer"
+            class="glass-panel rounded-2xl px-4 sm:px-6 py-4 mt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+            aria-label="Job listings pagination"
+          >
+            <div class="text-xs text-slate-300 font-mono">
+              <span id="pageInfoText">Page 1 of 1</span>
+            </div>
+
+            <div class="flex items-center gap-1.5 flex-wrap justify-center">
+              {/* Previous Button */}
+              <button
+                type="button"
+                id="prevPageBtn"
+                class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#202734] hover:bg-[#36415A] text-slate-300 hover:text-white border border-white/10 transition disabled:opacity-40 disabled:pointer-events-none cursor-pointer flex items-center gap-1"
+              >
+                <span>←</span>
+                <span>{isId ? 'Sebelumnya' : 'Previous'}</span>
+              </button>
+
+              {/* Numbered Page Buttons injected dynamically by JS */}
+              <div id="pageNumbersGroup" class="flex items-center gap-1 flex-wrap"></div>
+
+              {/* Next Button */}
+              <button
+                type="button"
+                id="nextPageBtn"
+                class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#202734] hover:bg-[#36415A] text-slate-300 hover:text-white border border-white/10 transition disabled:opacity-40 disabled:pointer-events-none cursor-pointer flex items-center gap-1"
+              >
+                <span>{isId ? 'Selanjutnya' : 'Next'}</span>
+                <span>→</span>
+              </button>
+            </div>
+          </nav>
+
           {/* EMPTY STATE (Hidden by default, shown when filters match nothing) */}
           <div
             id="emptyStateNotice"
@@ -564,50 +619,148 @@ export const CareerPage: FC<CareerPageProps> = ({
           <span id="toastMessage">{t.copiedTooltip}</span>
         </div>
 
-        {/* CLIENT SCRIPT: REAL-TIME FILTERING & PITCH GENERATOR */}
+        {/* CLIENT SCRIPT: REAL-TIME FILTERING, PAGINATION & QUICK PITCH GENERATOR */}
         <script>{`
           (function() {
             let activeRegion = 'all';
             let activeRole = 'all';
             let searchQuery = '';
+            let currentPage = 1;
+            const ITEMS_PER_PAGE = 8;
+            let matchingCards = [];
 
             const searchInput = document.getElementById('careerSearchInput');
             const regionBtns = document.querySelectorAll('.region-btn');
             const roleBtns = document.querySelectorAll('.role-btn');
-            const jobCards = document.querySelectorAll('.job-card');
+            const jobCards = Array.from(document.querySelectorAll('.job-card'));
             const filteredCountEl = document.getElementById('filteredCount');
             const emptyState = document.getElementById('emptyStateNotice');
             const resetBtn = document.getElementById('resetFiltersBtn');
             const toast = document.getElementById('toastNotification');
-            const toastMessage = document.getElementById('toastMessage');
+            const pageInfoText = document.getElementById('pageInfoText');
+            const pageNumbersGroup = document.getElementById('pageNumbersGroup');
+            const prevPageBtn = document.getElementById('prevPageBtn');
+            const nextPageBtn = document.getElementById('nextPageBtn');
+            const paginationNav = document.getElementById('paginationNavContainer');
 
             function applyFilters() {
-              let visibleCount = 0;
+              matchingCards = [];
 
               jobCards.forEach(card => {
-                const cardRegion = card.getAttribute('data-region');
-                const cardRole = card.getAttribute('data-role');
+                const cardRegion = card.getAttribute('data-region') || '';
+                const cardRole = card.getAttribute('data-role') || '';
                 const cardSearch = card.getAttribute('data-search') || '';
 
                 const matchesRegion = (activeRegion === 'all' || cardRegion === activeRegion);
-                const matchesRole = (activeRole === 'all' || cardRole === activeRole);
+                let matchesRole = false;
+                if (activeRole === 'all') {
+                  matchesRole = true;
+                } else if (activeRole === 'ai') {
+                  matchesRole = /\\b(ai|llm|agent|agentic|prompt|genai|vibe|gpt|claude|gemini)\\b/i.test(cardSearch);
+                } else {
+                  matchesRole = (cardRole === activeRole);
+                }
                 const matchesSearch = !searchQuery || cardSearch.includes(searchQuery);
 
                 if (matchesRegion && matchesRole && matchesSearch) {
-                  card.style.display = 'flex';
-                  visibleCount++;
-                } else {
-                  card.style.display = 'none';
+                  matchingCards.push(card);
                 }
               });
 
               if (filteredCountEl) {
-                filteredCountEl.textContent = visibleCount;
+                filteredCountEl.textContent = matchingCards.length;
               }
 
               if (emptyState) {
-                emptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
+                emptyState.style.display = (matchingCards.length === 0) ? 'block' : 'none';
               }
+
+              if (paginationNav) {
+                paginationNav.style.display = (matchingCards.length === 0) ? 'none' : 'flex';
+              }
+
+              currentPage = 1;
+              renderCurrentPage();
+            }
+
+            function renderCurrentPage() {
+              const totalItems = matchingCards.length;
+              const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+              if (currentPage > totalPages) currentPage = totalPages;
+              if (currentPage < 1) currentPage = 1;
+
+              const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+              const endIndex = startIndex + ITEMS_PER_PAGE;
+
+              // Hide all cards, then show current page slice
+              jobCards.forEach(card => {
+                card.style.display = 'none';
+              });
+
+              for (let i = startIndex; i < endIndex && i < totalItems; i++) {
+                matchingCards[i].style.display = 'flex';
+              }
+
+              // Update Page Indicator
+              if (pageInfoText) {
+                const lang = document.documentElement.lang;
+                pageInfoText.textContent = (lang === 'id')
+                  ? \`Halaman \${currentPage} dari \${totalPages} (\${totalItems} posisi terverifikasi)\`
+                  : \`Page \${currentPage} of \${totalPages} (\${totalItems} verified roles)\`;
+              }
+
+              // Prev / Next button states
+              if (prevPageBtn) prevPageBtn.disabled = (currentPage <= 1);
+              if (nextPageBtn) nextPageBtn.disabled = (currentPage >= totalPages);
+
+              // Render Numbered Page Buttons
+              if (pageNumbersGroup) {
+                pageNumbersGroup.innerHTML = '';
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, startPage + 4);
+                if (endPage - startPage < 4) {
+                  startPage = Math.max(1, endPage - 4);
+                }
+
+                for (let p = startPage; p <= endPage; p++) {
+                  const btn = document.createElement('button');
+                  btn.type = 'button';
+                  btn.textContent = String(p);
+                  if (p === currentPage) {
+                    btn.className = 'w-8 h-8 rounded-lg text-xs font-bold bg-[#B7D894] text-[#202734] shadow-xs';
+                  } else {
+                    btn.className = 'w-8 h-8 rounded-lg text-xs font-semibold bg-[#202734] text-slate-300 hover:text-white border border-white/10 transition cursor-pointer';
+                  }
+                  btn.addEventListener('click', () => {
+                    currentPage = p;
+                    renderCurrentPage();
+                    document.getElementById('jobGridContainer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  });
+                  pageNumbersGroup.appendChild(btn);
+                }
+              }
+            }
+
+            // Pagination Prev & Next Button Listeners
+            if (prevPageBtn) {
+              prevPageBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                  currentPage--;
+                  renderCurrentPage();
+                  document.getElementById('jobGridContainer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              });
+            }
+
+            if (nextPageBtn) {
+              nextPageBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(matchingCards.length / ITEMS_PER_PAGE);
+                if (currentPage < totalPages) {
+                  currentPage++;
+                  renderCurrentPage();
+                  document.getElementById('jobGridContainer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              });
             }
 
             // Search input listener
@@ -674,17 +827,16 @@ export const CareerPage: FC<CareerPageProps> = ({
               });
             }
 
-            // Quick Pitch Generator & Copy
+            // Quick Pitch Generator & Copy (Tailored for Agus Maulana + AI & Banking)
             document.querySelectorAll('.copy-pitch-btn').forEach(btn => {
               btn.addEventListener('click', () => {
                 const title = btn.getAttribute('data-job-title') || 'Technical Role';
                 const company = btn.getAttribute('data-job-company') || 'your company';
-                const pitch = "Hi! I am Agus Maulana Yusuf Noor, an IT Department Head & Backend Engineer with 15+ years of experience in enterprise banking, Linux server administration, and mission-critical database engineering (Golang, Python, Laravel, MySQL). I would love to connect regarding the " + title + " opening at " + company + "! Full Portfolio & CV: https://agusmyn.my.id";
+                const pitch = "Hi! I am Agus Maulana Yusuf Noor, an IT Department Head & Backend Engineer with 15+ years of experience in enterprise banking, Linux server administration, and modern AI & Vibe Coding paradigms (Golang, Python, Laravel, MySQL, AI Agents). I would love to connect regarding the " + title + " opening at " + company + "! Full Portfolio & ATS Scorecard: https://agusmyn.my.id";
 
                 navigator.clipboard.writeText(pitch).then(() => {
                   showToast();
                 }).catch(() => {
-                  // Fallback
                   const el = document.createElement('textarea');
                   el.value = pitch;
                   document.body.appendChild(el);
@@ -705,6 +857,9 @@ export const CareerPage: FC<CareerPageProps> = ({
                 toast.classList.remove('opacity-100', 'translate-y-0');
               }, 3000);
             }
+
+            // Initial load
+            applyFilters();
           })();
         `}</script>
       </body>

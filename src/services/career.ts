@@ -44,6 +44,7 @@ const CACHE_TTL_MS = 15 * 60 * 1000; // 15 Minutes Cache
 
 // Agus Maulana's Core Skills Matrix for Smart ATS & Job Matching
 const PROFILE_SKILLS: { name: string; patterns: RegExp[]; weight: number; category: 'lead' | 'backend' | 'sysadmin_dba' | 'fullstack' }[] = [
+  { name: 'AI & Vibe Coding', patterns: [/\bai\b/i, /\bartificial\s+intelligence\b/i, /\bllm\b/i, /\bagentic\b/i, /\bvibe\s*coding\b/i, /\bprompt\b/i, /\bgpt\b/i, /\bclaude\b/i, /\bgemini\b/i, /\blangchain\b/i, /\bgenai\b/i], weight: 16, category: 'backend' },
   { name: 'Golang / Go', patterns: [/\bgolang\b/i, /\bgo\s+developer\b/i, /\bgo\s+engineer\b/i, /\bgo\s+backend\b/i], weight: 18, category: 'backend' },
   { name: 'Backend Engineering', patterns: [/\bbackend\b/i, /\bback-end\b/i, /\bserver-side\b/i, /\bapi\s+design\b/i, /\bmicroservices\b/i], weight: 15, category: 'backend' },
   { name: 'Python', patterns: [/\bpython\b/i, /\bfastapi\b/i, /\bdjango\b/i, /\bflask\b/i], weight: 15, category: 'backend' },
@@ -292,6 +293,27 @@ function getCuratedVerifiedJobs(): VerifiedCareerJob[] {
       summarySnippet: 'Guiding banking compliance, network segmentation, zero-trust infrastructure, and incident management for tier-1 financial services.',
       source: 'Lever Verified ATS',
     },
+    {
+      id: 'curated-07',
+      title: 'Senior AI Engineer & LLM Backend Architect',
+      company: 'Scale AI',
+      location: 'Remote (Worldwide)',
+      region: 'worldwide',
+      regionLabel: 'Worldwide (Remote)',
+      workplaceType: 'remote',
+      applyUrl: 'https://job-boards.greenhouse.io/scaleai',
+      postedAt: d1,
+      ageDays: 1,
+      matchScore: 98,
+      matchedSkills: ['AI & Vibe Coding', 'Python', 'Golang / Go', 'Backend Engineering', 'Database & MySQL / DBA'],
+      roleCategory: 'backend',
+      trustScore: 100,
+      trustLevel: 'verified_ats',
+      atsVendor: 'Greenhouse',
+      trustFlags: ['enterprise_ats_whitelist', 'https_verified'],
+      summarySnippet: 'Architecting high-throughput LLM pipelines, AI agentic execution engines, and prompt-accelerated backend microservices at enterprise scale.',
+      source: 'Greenhouse Verified ATS',
+    },
   ];
 }
 
@@ -324,8 +346,8 @@ export async function getVerifiedCareerJobs(forceRefresh = false): Promise<Caree
     seenUrls.add(job.applyUrl.toLowerCase());
   }
 
-  // 2. Fetch live jobs from Freehire API in parallel
-  const freehireKeywords = ['backend', 'golang', 'python', 'laravel', 'engineer'];
+  // 2. Fetch live jobs from Freehire API in parallel (with AI keywords included)
+  const freehireKeywords = ['ai', 'llm', 'backend', 'golang', 'python', 'laravel', 'engineer'];
   const fetchPromises = freehireKeywords.map(async (kw) => {
     try {
       const res = await fetch(`https://freehire.me/api/v1/jobs/search?q=${encodeURIComponent(kw)}&sort=posted_at:desc&limit=15`, {
