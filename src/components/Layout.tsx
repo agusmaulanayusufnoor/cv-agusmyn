@@ -270,6 +270,9 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
             .text-white { color: #111827 !important; }
             .text-[#B7D894], .text-[#E0F8C7] { color: #111827 !important; }
             a { text-decoration: none !important; color: #111827 !important; }
+            .print\\:block { display: block !important; }
+            .print\\:inline { display: inline !important; }
+            .print\\:hidden { display: none !important; }
           }
         `}</style>
       </head>
@@ -390,8 +393,8 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
 
                 {/* Left/Main Column: Headline & Value Proposition */}
                 <div class="lg:col-span-8 space-y-5">
-                  {/* Status Pill */}
-                  <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#B7D894]/15 border border-[#B7D894]/30 text-[#E0F8C7] text-xs font-mono font-medium">
+                  {/* Status Pill (Sembunyikan di PDF agar ATS membaca Nama terlebih dahulu) */}
+                  <div class="no-print inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#B7D894]/15 border border-[#B7D894]/30 text-[#E0F8C7] text-xs font-mono font-medium">
                     <span class="w-2 h-2 rounded-full bg-[#B7D894] animate-pulse"></span>
                     <span>15+ Years Enterprise Banking • Open to Remote</span>
                   </div>
@@ -411,8 +414,8 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                     {profile.summary}
                   </p>
 
-                  {/* Contact Badges */}
-                  <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400 pt-1 font-mono">
+                  {/* Contact Badges (Tampilan Web) */}
+                  <div class="no-print flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400 pt-1 font-mono">
                     <span class="inline-flex items-center gap-1.5">
                       <span class="text-[#B7D894]">📍</span> {profile.location}
                     </span>
@@ -430,8 +433,8 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                     </span>
                   </div>
 
-                  {/* Social Action Pills */}
-                  <div class="flex flex-wrap items-center gap-2.5 pt-2">
+                  {/* Social Action Pills (Tampilan Web - disembunyikan di PDF agar warna font tidak gelap dan tidak tertabrak OCR ATS) */}
+                  <div class="no-print flex flex-wrap items-center gap-2.5 pt-2">
                     <a
                       href={profile.github}
                       target="_blank"
@@ -465,6 +468,21 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                       <span class="text-[#B7D894]">🌐</span>
                       bprjabar.com ↗
                     </a>
+                  </div>
+
+                  {/* Header Kontak Khusus PDF / Cetak (100% Kontras Tinggi, Teks Hitam Jelas, Ramah ATS, Tanpa Tombol Gelap) */}
+                  <div class="hidden print:block text-[9.5pt] text-gray-900 pt-2 space-y-1 font-sans">
+                    <p>
+                      <strong>Email:</strong> {profile.email} &nbsp;|&nbsp; 
+                      <strong>Phone/WA:</strong> {profile.whatsapp} &nbsp;|&nbsp; 
+                      <strong>Location:</strong> {profile.location}
+                    </p>
+                    <p>
+                      <strong>LinkedIn:</strong> linkedin.com/in/agus-maulana-yusuf-noor &nbsp;|&nbsp; 
+                      <strong>GitHub:</strong> github.com/agusmaulanayusufnoor &nbsp;|&nbsp; 
+                      <strong>Portfolio:</strong> https://agusmyn.my.id &nbsp;|&nbsp; 
+                      <strong>Company:</strong> bprjabar.com
+                    </p>
                   </div>
                 </div>
 
@@ -503,8 +521,8 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
 
               </div>
 
-              {/* 4 Core Impact Metrics */}
-              <div class="mt-10 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4">
+              {/* 4 Core Impact Metrics (Sembunyikan di PDF sesuai permintaan) */}
+              <div class="no-print mt-10 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4">
                 {stats.map((st) => (
                   <div class="glass-card spotlight-card p-4 rounded-2xl text-center sm:text-left">
                     <p class="font-mono text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E0F8C7] to-[#B7D894]">
@@ -587,10 +605,10 @@ export const CvPage: FC<CvPageProps> = ({ lang, repos = [], fromCache = false, l
                           <h4 class="text-xs font-mono font-semibold text-[#B7D894] uppercase tracking-wider mb-2">
                             {category}
                           </h4>
-                          <div class="flex flex-wrap gap-1.5">
-                            {items.map((skill) => (
-                              <span class="px-2.5 py-1 text-xs bg-[#202734]/80 border border-white/10 rounded-lg text-slate-200 font-medium hover:border-[#B7D894]/50 transition">
-                                {skill}
+                          <div class="flex flex-wrap gap-1.5 print:block">
+                            {items.map((skill, sIdx) => (
+                              <span class="skill-tag px-2.5 py-1 text-xs bg-[#202734]/80 border border-white/10 rounded-lg text-slate-200 font-medium hover:border-[#B7D894]/50 transition print:bg-transparent print:border-none print:p-0 print:text-gray-900">
+                                {skill}{sIdx < items.length - 1 ? <span class="hidden print:inline">, </span> : null}
                               </span>
                             ))}
                           </div>

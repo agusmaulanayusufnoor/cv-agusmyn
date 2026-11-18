@@ -102,7 +102,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
       {
         role: "Head of IT Department",
         company: "PT BPR Jabar Perseroda",
-        period: "2024 – Present",
+        period: "Jan 2024 – Present",
         highlights: [
           "Direct technology roadmap, infrastructure modernization, and internal engineering teams supporting 300+ enterprise users and over $30M in assets under management.",
           "Maintained 99.99% high-availability uptime and 0 critical security incidents across 20+ production Linux servers (Ubuntu/CentOS) and core banking databases.",
@@ -112,7 +112,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
       {
         role: "IT Staff (Full-Stack Developer & SysAdmin)",
         company: "PT BPR Jabar Perseroda",
-        period: "2011 – 2024",
+        period: "Jan 2011 – Jan 2024",
         highlights: [
           "Architected and delivered 4 enterprise web platforms (ESDMKU HRIS, E-Monitoring, E-Box Archive, Notifku Gateway), reducing document retrieval times by 75% and cutting manual operational overhead by 40%.",
           "Administered high-throughput MySQL database clusters with automated master-slave replication and nightly backup pipelines, achieving 100% data integrity with zero data loss over 13 consecutive years.",
@@ -211,7 +211,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
       {
         role: "Pemimpin Bagian IT (Head of IT)",
         company: "PT BPR Jabar Perseroda",
-        period: "2024 – Sekarang",
+        period: "Jan 2024 – Sekarang",
         highlights: [
           "Memimpin arah strategi teknologi, modernisasi infrastruktur perbankan, dan membina tim rekayasa perangkat lunak yang melayani 300+ staf internal dan aset kelolaan lebih dari Rp 500 Miliar.",
           "Menjaga reliabilitas sistem dengan catatan 99.99% operational uptime serta 0 insiden keamanan kritis pada 20+ server Linux produksi (Ubuntu/CentOS) dan klaster database perbankan.",
@@ -221,7 +221,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
       {
         role: "Staff IT (Full-Stack Developer & SysAdmin)",
         company: "PT BPR Jabar Perseroda",
-        period: "2011 – 2024",
+        period: "Jan 2011 – Jan 2024",
         highlights: [
           "Merancang, membangun, dan merilis 4 platform enterprise inti (ESDMKU HRIS, E-Monitoring, E-Boxku Digital Archive, Notifku WhatsApp Gateway), memangkas waktu pencarian dokumen hingga 75% dan memangkas overhead operasional manual sebesar 40%.",
           "Mengadministrasikan klaster database MySQL berkapasitas tinggi dengan replikasi otomatis master-slave serta sistem backup terjadwal, mempertahankan integritas data 100% tanpa kehilangan data (zero data loss) selama 13 tahun berturut-turut.",

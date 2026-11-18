@@ -95,13 +95,13 @@ AREAS OF EXPERTISE & TECHNICAL SKILLS
 PROFESSIONAL EXPERIENCE
 ================================================================================
 HEAD OF IT DEPARTMENT
-PT BPR Jabar Perseroda | 2024 – Present
+PT BPR Jabar Perseroda | Jan 2024 – Present
 - Direct technology roadmap, infrastructure modernization, and internal engineering teams supporting 300+ enterprise users and over $30M in assets under management.
 - Maintained 99.99% high-availability uptime and 0 critical security incidents across 20+ production Linux servers (Ubuntu/CentOS) and core banking databases.
 - Enforce strict regulatory IT compliance (OJK & Bank Indonesia standards), securing MikroTik network architecture, site-to-site VPN tunnels, and disaster recovery replication across 15+ branch offices.
 
 IT STAFF (FULL-STACK DEVELOPER & SYSADMIN)
-PT BPR Jabar Perseroda | 2011 – 2024
+PT BPR Jabar Perseroda | Jan 2011 – Jan 2024
 - Architected and delivered 4 enterprise web platforms (ESDMKU HRIS, E-Monitoring, E-Box Archive, Notifku Gateway), reducing document retrieval times by 75% and cutting manual operational overhead by 40%.
 - Administered high-throughput MySQL database clusters with automated master-slave replication and nightly backup pipelines, achieving 100% data integrity with zero data loss over 13 consecutive years.
 - Engineered high-performance RESTful APIs (Golang, Laravel, Python) to replace legacy desktop modules, reducing inter-system data synchronization latency by 60%.
