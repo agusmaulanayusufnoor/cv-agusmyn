@@ -46,6 +46,8 @@ const CACHE_TTL_MS = 15 * 60 * 1000; // 15 Minutes Cache
 
 // Agus Maulana's Core Skills Matrix for Smart ATS & Job Matching
 const PROFILE_SKILLS: { name: string; patterns: RegExp[]; weight: number; category: 'lead' | 'backend' | 'sysadmin_dba' | 'fullstack' }[] = [
+  { name: 'AWS Cloud', patterns: [/\baws\b/i, /\bamazon\s+web\s+services\b/i, /\bec2\b/i, /\bs3\b/i, /\brds\b/i, /\bcloudwatch\b/i, /\bcloud\s+architect\b/i], weight: 16, category: 'sysadmin_dba' },
+  { name: 'Google Cloud (GCP)', patterns: [/\bgcp\b/i, /\bgoogle\s+cloud\b/i, /\bcloud\s+run\b/i, /\bcompute\s+engine\b/i, /\bbigquery\b/i], weight: 16, category: 'sysadmin_dba' },
   { name: 'AI & Vibe Coding', patterns: [/\bai\b/i, /\bartificial\s+intelligence\b/i, /\bllm\b/i, /\bagentic\b/i, /\bvibe\s*coding\b/i, /\bprompt\b/i, /\bgpt\b/i, /\bclaude\b/i, /\bgemini\b/i, /\blangchain\b/i, /\bgenai\b/i], weight: 16, category: 'backend' },
   { name: 'Golang / Go', patterns: [/\bgolang\b/i, /\bgo\s+developer\b/i, /\bgo\s+engineer\b/i, /\bgo\s+backend\b/i], weight: 18, category: 'backend' },
   { name: 'Backend Engineering', patterns: [/\bbackend\b/i, /\bback-end\b/i, /\bserver-side\b/i, /\bapi\s+design\b/i, /\bmicroservices\b/i], weight: 15, category: 'backend' },
@@ -566,8 +568,8 @@ export async function getVerifiedCareerJobs(forceRefresh = false): Promise<Caree
     seenUrls.add(job.applyUrl.toLowerCase());
   }
 
-  // 2. Fetch live jobs from Freehire API in parallel (with AI keywords included)
-  const freehireKeywords = ['ai', 'llm', 'backend', 'golang', 'python', 'laravel', 'engineer'];
+  // 2. Fetch live jobs from Freehire API in parallel (with AI & Cloud keywords included)
+  const freehireKeywords = ['ai', 'llm', 'backend', 'golang', 'python', 'aws', 'gcp', 'cloud', 'laravel', 'engineer'];
   const fetchPromises = freehireKeywords.map(async (kw) => {
     try {
       const res = await fetch(`https://freehire.me/api/v1/jobs/search?q=${encodeURIComponent(kw)}&sort=posted_at:desc&limit=15`, {

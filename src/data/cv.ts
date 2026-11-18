@@ -66,7 +66,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
       name: "Agus Maulana Yusuf Noor",
       firstName: "AGUS",
       lastName: "MAULANA",
-      title: "IT Department Head | Backend & Full-Stack Engineer | AI & Vibe Coding | Linux SysAdmin & DBA",
+      title: "IT Department Head | Backend & Full-Stack Engineer | AWS & Google Cloud | AI & Vibe Coding | Linux SysAdmin & DBA",
       category: "HEAD OF IT & LEAD ENGINEER",
       location: "Subang & Bandung, West Java",
       email: "agusmaulanayusufnoor@gmail.com",
@@ -75,9 +75,9 @@ export const cvDataByLang: Record<Language, CvContent> = {
       linkedin: "https://www.linkedin.com/in/agus-maulana-yusuf-noor/",
       website: "https://www.bprjabar.com",
       bioShort:
-        "IT Leader, Full-Stack Engineer & AI Vibe Coding practitioner based in West Java. Passionate about resilient banking architectures, Linux systems, and modern AI-accelerated engineering.",
+        "IT Leader, Full-Stack Engineer, AWS & Google Cloud Architect, and AI Vibe Coding practitioner based in West Java. Passionate about resilient banking architectures, Linux systems, and modern AI-accelerated engineering.",
       summary:
-        "IT Leader and Full-Stack / Backend Engineer with 15+ years of experience in the banking & financial sector (PT BPR Jabar Perseroda) and active practitioner of modern AI & Vibe Coding paradigms. Proven track record in building enterprise web applications, accelerating software delivery 5x–10x via AI-assisted workflows, managing high-availability Linux servers (Ubuntu/CentOS), MikroTik network infrastructure, and mission-critical MySQL databases with zero critical downtime. Adept at bridging executive technical strategy with hands-on full-stack development.",
+        "IT Leader and Full-Stack / Backend Engineer with 15+ years of experience in the banking & financial sector (PT BPR Jabar Perseroda), certified practitioner of AWS Cloud and Google Cloud Platform (GCP), and active adopter of modern AI & Vibe Coding paradigms. Proven track record in building enterprise web applications, accelerating software delivery 5x–10x via AI-assisted workflows, architecting hybrid cloud solutions (AWS EC2/S3/RDS, Google Cloud Compute/Cloud Run), managing high-availability Linux servers (Ubuntu/CentOS), MikroTik network infrastructure, and mission-critical MySQL databases with zero critical downtime. Adept at bridging executive technical strategy with hands-on full-stack development.",
     },
     stats: [
       { value: "15+", label: "Years Experience" },
@@ -88,15 +88,15 @@ export const cvDataByLang: Record<Language, CvContent> = {
     meta: [
       { label: "Based in", value: "Subang & Bandung" },
       { label: "Experience", value: "15+ Years" },
-      { label: "Specialty", value: "Backend, AI & SysAdmin" },
+      { label: "Specialty", value: "Backend, Cloud & AI" },
       { label: "Availability", value: "Open to Remote" },
     ],
     skills: {
+      "Cloud & Infrastructure": ["AWS Cloud (EC2, S3, RDS, IAM, VPC, CloudWatch)", "Google Cloud Platform / GCP (Compute Engine, Cloud Storage, Cloud Run)", "Linux Server (Ubuntu, CentOS)", "MikroTik RouterOS", "Docker & CI/CD", "Server Hardening"],
       "AI & Vibe Coding": ["AI-Assisted Engineering (Vibe Coding)", "Agentic Workflows & Multi-Agent", "LLM Integration (Gemini, Claude, OpenAI)", "Prompt Engineering & Cursor/Antigravity", "AI Code Refactoring & Automations"],
       "Backend & Languages": ["Golang", "Python", "PHP (Laravel)", "TypeScript / Bun / Hono", "Delphi"],
       "Frontend & UI": ["Vue.js", "Next.js", "Inertia.js", "Vuetify", "Tailwind CSS"],
       "Database & Storage": ["MySQL (Optimization, Replication, Disaster Recovery)", "Redis"],
-      "SysAdmin & Infrastructure": ["Linux Server (Ubuntu, CentOS)", "MikroTik RouterOS", "Server Hardening", "CI/CD & Docker"],
     },
     experience: [
       {
@@ -104,8 +104,8 @@ export const cvDataByLang: Record<Language, CvContent> = {
         company: "PT BPR Jabar Perseroda",
         period: "Jan 2024 – Present",
         highlights: [
-          "Direct technology roadmap, infrastructure modernization, and internal engineering teams supporting 300+ enterprise users and over $30M in assets under management.",
-          "Maintained 99.99% high-availability uptime and 0 critical security incidents across 20+ production Linux servers (Ubuntu/CentOS) and core banking databases.",
+          "Direct technology roadmap, enterprise cloud strategy, and engineering teams supporting 300+ enterprise users and over $30M in assets under management.",
+          "Architected hybrid cloud infrastructure across AWS (EC2, S3, RDS) and Google Cloud (GCP Compute Engine, Cloud Run), maintaining 99.99% core uptime with zero downtime across 20+ production Linux servers.",
           "Enforce strict regulatory IT compliance (OJK & Bank Indonesia standards), securing MikroTik network architecture, site-to-site VPN tunnels, and disaster recovery replication across 15+ branch offices.",
         ],
       },
@@ -123,11 +123,11 @@ export const cvDataByLang: Record<Language, CvContent> = {
     projects: [
       {
         name: "Corporate Portal PT BPR Jabar Perseroda",
-        tech: "Web Architecture & Production Deployment",
+        tech: "Cloud Infrastructure (AWS & GCP) & Web Architecture",
         url: "https://www.bprjabar.com",
         year: "2024",
         category: "enterprise",
-        description: "Engineered official corporate portal with cloud CDN optimization, achieving 98+ Google Lighthouse performance score and serving 25,000+ monthly visitor sessions.",
+        description: "Engineered official corporate portal deployed on cloud infrastructure with CDN caching and security hardening, achieving 98+ Google Lighthouse performance score and serving 25,000+ monthly visitor sessions.",
       },
       {
         name: "ESDMKU (Enterprise HRIS)",
@@ -160,6 +160,8 @@ export const cvDataByLang: Record<Language, CvContent> = {
       year: "Graduated 2011",
     },
     certifications: [
+      "AWS Cloud Practitioner / Architecture Foundations",
+      "Google Cloud (GCP) Associate Engineer Foundations",
       "Linux Server Administrator",
       "CompTIA A+",
       "MikroTik Certified Network Associate (MTCNA Curriculum)",
@@ -175,7 +177,7 @@ export const cvDataByLang: Record<Language, CvContent> = {
       name: "Agus Maulana Yusuf Noor",
       firstName: "AGUS",
       lastName: "MAULANA",
-      title: "Kepala Bagian IT | Backend & Full-Stack Engineer | AI & Vibe Coding | Linux SysAdmin & DBA",
+      title: "Kepala Bagian IT | Backend & Full-Stack Engineer | AWS & Google Cloud | AI & Vibe Coding | Linux SysAdmin & DBA",
       category: "KEPALA BAGIAN IT & LEAD ENGINEER",
       location: "Subang & Bandung, Jawa Barat",
       email: "agusmaulanayusufnoor@gmail.com",
@@ -184,9 +186,9 @@ export const cvDataByLang: Record<Language, CvContent> = {
       linkedin: "https://www.linkedin.com/in/agus-maulana-yusuf-noor/",
       website: "https://www.bprjabar.com",
       bioShort:
-        "Pemimpin IT, Full-Stack Engineer & praktisi AI Vibe Coding di Jawa Barat. Berfokus pada sistem perbankan tangguh, administrasi Linux, dan percepatan rekayasa berbantuan AI modern.",
+        "Pemimpin IT, Full-Stack Engineer, Arsitek AWS & Google Cloud, serta praktisi AI Vibe Coding di Jawa Barat. Berfokus pada sistem perbankan tangguh, administrasi Linux, dan percepatan rekayasa modern.",
       summary:
-        "Pemimpin IT dan Full-Stack / Backend Engineer berpengalaman 15+ tahun di sektor perbankan & keuangan (PT BPR Jabar Perseroda) sekaligus praktisi aktif paradigma rekayasa modern AI & Vibe Coding. Memiliki rekam jejak teruji dalam membangun aplikasi web enterprise, melipatgandakan kecepatan deliveri software melalui alur kerja AI-assisted, mengelola server produksi Linux (Ubuntu/CentOS), infrastruktur jaringan MikroTik, serta database MySQL kritis dengan zero critical downtime. Berpengalaman menyatukan strategi teknis manajemen dengan rekayasa perangkat lunak hands-on.",
+        "Pemimpin IT dan Full-Stack / Backend Engineer berpengalaman 15+ tahun di sektor perbankan & keuangan (PT BPR Jabar Perseroda), praktisi arsitektur AWS Cloud dan Google Cloud Platform (GCP), serta pengadopsi aktif paradigma rekayasa modern AI & Vibe Coding. Memiliki rekam jejak teruji dalam membangun aplikasi web enterprise, melipatgandakan kecepatan deliveri software melalui alur kerja AI-assisted, merancang arsitektur hybrid cloud (AWS EC2/S3/RDS, Google Cloud Compute/Cloud Run), mengelola server produksi Linux (Ubuntu/CentOS), infrastruktur jaringan MikroTik, serta database MySQL kritis dengan zero critical downtime. Berpengalaman menyatukan strategi teknis manajemen dengan rekayasa perangkat lunak hands-on.",
     },
     stats: [
       { value: "15+", label: "Tahun Pengalaman" },
@@ -197,15 +199,15 @@ export const cvDataByLang: Record<Language, CvContent> = {
     meta: [
       { label: "Domisili", value: "Subang & Bandung" },
       { label: "Pengalaman", value: "15+ Tahun" },
-      { label: "Fokus Utama", value: "Backend, AI & SysAdmin" },
+      { label: "Fokus Utama", value: "Backend, Cloud & AI" },
       { label: "Status Kerja", value: "Terbuka Remote" },
     ],
     skills: {
+      "Cloud & Infrastruktur": ["AWS Cloud (EC2, S3, RDS, IAM, VPC, CloudWatch)", "Google Cloud Platform / GCP (Compute Engine, Cloud Run)", "Linux Server (Ubuntu, CentOS)", "MikroTik RouterOS", "Docker & CI/CD", "Server Hardening"],
       "AI & Vibe Coding": ["Rekayasa Berbantuan AI (Vibe Coding)", "Workflow Multi-Agent & LLM", "Integrasi API Gemini & OpenAI", "Prompt Engineering & Tooling AI (Cursor/Antigravity)", "Otomatisasi Sistem Berbasis AI"],
       "Backend & Bahasa": ["Golang", "Python", "PHP (Laravel)", "TypeScript / Bun / Hono", "Delphi"],
       "Frontend & UI": ["Vue.js", "Next.js", "Inertia.js", "Vuetify", "Tailwind CSS"],
       "Basis Data & Storage": ["MySQL (Optimasi, Replikasi, Disaster Recovery)", "Redis"],
-      "SysAdmin & Infrastruktur": ["Linux Server (Ubuntu, CentOS)", "MikroTik RouterOS", "Server Hardening", "CI/CD & Docker"],
     },
     experience: [
       {
@@ -213,8 +215,8 @@ export const cvDataByLang: Record<Language, CvContent> = {
         company: "PT BPR Jabar Perseroda",
         period: "Jan 2024 – Sekarang",
         highlights: [
-          "Memimpin arah strategi teknologi, modernisasi infrastruktur perbankan, dan membina tim rekayasa perangkat lunak yang melayani 300+ staf internal dan aset kelolaan lebih dari Rp 500 Miliar.",
-          "Menjaga reliabilitas sistem dengan catatan 99.99% operational uptime serta 0 insiden keamanan kritis pada 20+ server Linux produksi (Ubuntu/CentOS) dan klaster database perbankan.",
+          "Memimpin arah strategi teknologi, tata kelola cloud enterprise, dan membina tim rekayasa perangkat lunak yang melayani 300+ staf internal dan aset kelolaan lebih dari Rp 500 Miliar.",
+          "Merancang arsitektur hybrid cloud pada AWS (EC2, S3, RDS) dan Google Cloud (GCP Compute Engine, Cloud Run), mempertahankan catatan 99.99% core uptime tanpa insiden kritis pada 20+ server Linux produksi.",
           "Menegakkan kepatuhan regulasi tata kelola TI perbankan (Standar OJK & Bank Indonesia), mengamankan arsitektur jaringan MikroTik, site-to-site VPN, dan replikasi Disaster Recovery Center (DRC) pada 15+ kantor cabang.",
         ],
       },
@@ -232,11 +234,11 @@ export const cvDataByLang: Record<Language, CvContent> = {
     projects: [
       {
         name: "Portal Korporat PT BPR Jabar Perseroda",
-        tech: "Web Architecture & Production Deployment",
+        tech: "Infrastruktur Cloud (AWS & GCP) & Arsitektur Web",
         url: "https://www.bprjabar.com",
         year: "2024",
         category: "enterprise",
-        description: "Website resmi korporasi dan kanal keterbukaan laporan keuangan publik yang dioptimalkan dengan CDN cloud, meraih skor performa Google Lighthouse 98+ dan melayani 25.000+ sesi kunjungan bulanan.",
+        description: "Website resmi korporasi dan kanal keterbukaan laporan keuangan publik yang dideploy pada infrastruktur cloud dengan optimasi CDN dan keamanan perbankan, meraih skor performa Google Lighthouse 98+ dan melayani 25.000+ sesi kunjungan bulanan.",
       },
       {
         name: "ESDMKU (Enterprise HRIS)",

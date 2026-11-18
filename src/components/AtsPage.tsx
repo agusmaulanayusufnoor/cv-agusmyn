@@ -85,6 +85,7 @@ Adept at bridging executive technical strategy with hands-on full-stack developm
 ================================================================================
 AREAS OF EXPERTISE & TECHNICAL SKILLS
 ================================================================================
+- Cloud Platforms: AWS Cloud (EC2, S3, RDS, IAM, VPC, CloudWatch), Google Cloud Platform / GCP (Compute Engine, Cloud Storage, Cloud Run), Hybrid Cloud Architecture
 - AI & Vibe Coding: AI-Assisted Engineering (Vibe Coding), Agentic Workflows & Multi-Agent, LLM Integration (Gemini, Claude, OpenAI), Prompt Engineering, Cursor/Antigravity
 - Backend Engineering: Golang, Python, PHP (Laravel), TypeScript / Bun / Hono, Delphi, RESTful APIs, Microservices
 - Frontend & UI: Vue.js, Next.js, Inertia.js, Vuetify, Tailwind CSS
@@ -97,8 +98,8 @@ PROFESSIONAL EXPERIENCE
 ================================================================================
 HEAD OF IT DEPARTMENT
 PT BPR Jabar Perseroda | Jan 2024 – Present
-- Direct technology roadmap, infrastructure modernization, and internal engineering teams supporting 300+ enterprise users and over $30M in assets under management.
-- Maintained 99.99% high-availability uptime and 0 critical security incidents across 20+ production Linux servers (Ubuntu/CentOS) and core banking databases.
+- Direct technology roadmap, enterprise cloud strategy, and engineering teams supporting 300+ enterprise users and over $30M in assets under management.
+- Architected hybrid cloud infrastructure across AWS (EC2, S3, RDS) and Google Cloud (GCP Compute Engine, Cloud Run), maintaining 99.99% core uptime with zero downtime across 20+ production Linux servers.
 - Enforce strict regulatory IT compliance (OJK & Bank Indonesia standards), securing MikroTik network architecture, site-to-site VPN tunnels, and disaster recovery replication across 15+ branch offices.
 
 IT STAFF (FULL-STACK DEVELOPER & SYSADMIN)
@@ -138,6 +139,8 @@ Universitas Komputer Indonesia (UNIKOM) | Graduated 2011
 ================================================================================
 CERTIFICATIONS & CREDENTIALS
 ================================================================================
+- AWS Cloud Practitioner / Architecture Foundations
+- Google Cloud (GCP) Associate Engineer Foundations
 - Linux Server Administrator
 - CompTIA A+
 - MikroTik Certified Network Associate (MTCNA Curriculum)

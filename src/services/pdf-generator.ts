@@ -32,7 +32,7 @@ export async function generateAtsResumePdf(lang: Language = 'en'): Promise<Uint8
   pdfDoc.setTitle(`${profile.name} — Resume & CV`);
   pdfDoc.setAuthor(profile.name);
   pdfDoc.setSubject(`Resume / Curriculum Vitae for ${profile.name} - ${profile.title}`);
-  pdfDoc.setKeywords(['Resume', 'CV', 'ATS', 'Head of IT', 'Backend Engineer', 'Golang', 'Python', 'AI Vibe Coding', 'Linux']);
+  pdfDoc.setKeywords(['Resume', 'CV', 'ATS', 'Head of IT', 'Backend Engineer', 'AWS Cloud', 'Google Cloud', 'GCP', 'Golang', 'Python', 'AI Vibe Coding', 'Linux']);
   pdfDoc.setCreator('Agus Maulana CV Platform (pdf-lib)');
   pdfDoc.setProducer('pdf-lib');
 
