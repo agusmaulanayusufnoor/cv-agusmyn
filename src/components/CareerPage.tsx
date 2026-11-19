@@ -520,58 +520,96 @@ export const CareerPage: FC<CareerPageProps> = ({
             </div>
           </section>
 
-          {/* Glassdoor Remote Live Search Box */}
-          <div class="glass-panel rounded-2xl p-5 border border-[#00A261]/35 bg-gradient-to-br from-[#202734] via-[#202734]/95 to-[#00A261]/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-lg shadow-black/20">
-            <div class="space-y-1">
-              <div class="flex items-center gap-2">
-                <div class="w-6 h-6 rounded-md bg-[#00A261] flex items-center justify-center text-white font-black text-xs shadow-xs">G</div>
-                <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                  <span>{isId ? 'Pencarian Remote Siap Pakai di Glassdoor.com' : 'Direct Remote Search on Glassdoor.com'}</span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40">{isId ? 'Resmi & Aman' : 'Verified Official'}</span>
-                </h3>
+          {/* Verified Remote Job Hub & Live Search Launchers */}
+          <div class="glass-panel rounded-2xl p-5 border border-[#B7D894]/30 bg-gradient-to-br from-[#202734] via-[#202734]/95 to-[#B7D894]/10 space-y-4 shadow-lg shadow-black/20">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+              <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">🌐</span>
+                  <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                    <span>{isId ? 'Hub Direktori & Pencarian Lowongan Remote Terverifikasi' : 'Verified Remote Job Directory & Portals Hub'}</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#B7D894]/20 text-[#E0F8C7] border border-[#B7D894]/40">{isId ? '100% Remote Terpercaya' : '100% Vetted Remote'}</span>
+                  </h3>
+                </div>
+                <p class="text-xs text-slate-300">
+                  {isId
+                    ? 'Akses cepat dan lowongan terkurasi dari portal remote global terkemuka (Glassdoor, Arc.dev, Dynamite Jobs, Indeed, Kerja-Remote, NoDesk, dan Upwork):'
+                    : 'Instant query presets & curated feeds across top verified remote job boards (Glassdoor, Arc.dev, Dynamite Jobs, Indeed, Kerja-Remote, NoDesk, & Upwork):'}
+                </p>
               </div>
-              <p class="text-xs text-slate-300">
-                {isId
-                  ? 'Buka lowongan kerja remote global di Glassdoor dengan filter pencarian instan sesuai keahlian utama:'
-                  : 'Explore live worldwide remote vacancies on Glassdoor pre-filtered to matching tech domains:'}
-              </p>
             </div>
-            <div class="flex flex-wrap items-center gap-2">
+
+            {/* Portal Search Shortcuts */}
+            <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-white/5">
               <a
                 href="https://www.glassdoor.com/Job/remote-backend-engineer-jobs-SRCH_IL.0,6_IS11047_KO7,23.htm"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1 shadow-xs"
+                class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/20 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1.5 shadow-xs"
+                title="Cari lowongan backend remote di Glassdoor"
               >
-                <span>⚡ Backend Remote</span>
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                <div class="w-3.5 h-3.5 rounded-xs bg-[#00A261] text-white flex items-center justify-center font-black text-[9px]">G</div>
+                <span>Glassdoor Remote</span>
               </a>
               <a
-                href="https://www.glassdoor.com/Job/remote-cloud-architect-jobs-SRCH_IL.0,6_IS11047_KO7,22.htm"
+                href="https://arc.dev/remote-jobs"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1 shadow-xs"
+                class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#7A5AF8]/20 text-[#BDB4FE] border border-[#7A5AF8]/40 transition flex items-center gap-1.5 shadow-xs"
+                title="Explore remote developer jobs on Arc.dev"
               >
-                <span>☁️ Cloud AWS / GCP</span>
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                <span class="text-xs">⚡</span>
+                <span>Arc.dev Tech</span>
               </a>
               <a
-                href="https://www.glassdoor.com/Job/remote-head-of-it-jobs-SRCH_IL.0,6_IS11047_KO7,17.htm"
+                href="https://dynamitejobs.com/remote-jobs"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1 shadow-xs"
+                class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#FF4F00]/20 text-[#FF8A65] border border-[#FF4F00]/40 transition flex items-center gap-1.5 shadow-xs"
+                title="Search 100% remote jobs on Dynamite Jobs"
               >
-                <span>👔 IT Head / Lead</span>
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                <span class="text-xs">🎯</span>
+                <span>Dynamite Jobs</span>
               </a>
               <a
-                href="https://www.glassdoor.com/Job/remote-mysql-dba-jobs-SRCH_IL.0,6_IS11047_KO7,16.htm"
+                href="https://www.indeed.com/jobs?q=Remote+Senior+Software+Engineer&l=Remote"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1 shadow-xs"
+                class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#2164F3]/20 text-[#90CAF9] border border-[#2164F3]/40 transition flex items-center gap-1.5 shadow-xs"
+                title="Find remote software engineer jobs on Indeed"
               >
-                <span>🗄️ Linux & DBA</span>
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                <span class="text-xs font-black text-[#2164F3]">in</span>
+                <span>Indeed Remote</span>
+              </a>
+              <a
+                href="https://kerja-remote.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#0D9488]/20 text-[#5EEAD4] border border-[#0D9488]/40 transition flex items-center gap-1.5 shadow-xs"
+                title="Lowongan kerja remote untuk talent Indonesia, Malaysia & Singapura"
+              >
+                <span class="text-xs">🇮🇩</span>
+                <span>Kerja-Remote (SEA)</span>
+              </a>
+              <a
+                href="https://nodesk.co/remote-jobs"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#F59E0B]/20 text-[#FCD34D] border border-[#F59E0B]/40 transition flex items-center gap-1.5 shadow-xs"
+                title="Curated remote jobs directory and newsletter on NoDesk"
+              >
+                <span class="text-xs">🌍</span>
+                <span>NoDesk Global</span>
+              </a>
+              <a
+                href="https://www.upwork.com/freelance-jobs"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#14A800]/20 text-[#86EFAC] border border-[#14A800]/40 transition flex items-center gap-1.5 shadow-xs"
+                title="Browse high-ticket remote contracts on Upwork"
+              >
+                <span class="text-xs font-bold text-[#14A800]">up</span>
+                <span>Upwork Enterprise</span>
               </a>
             </div>
           </div>
@@ -579,8 +617,19 @@ export const CareerPage: FC<CareerPageProps> = ({
           {/* JOB LISTINGS GRID */}
           <main id="jobGridContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {jobs.map((job, idx) => {
-              const isLinkedIn = job.applyUrl.includes('linkedin.com') || (job.atsVendor && job.atsVendor.toLowerCase().includes('linkedin'));
-              const isGlassdoor = job.applyUrl.includes('glassdoor.com') || (job.atsVendor && job.atsVendor.toLowerCase().includes('glassdoor'));
+              const urlLower = job.applyUrl.toLowerCase();
+              const vendorLower = (job.atsVendor || '').toLowerCase();
+              const sourceLower = (job.source || '').toLowerCase();
+
+              const isLinkedIn = urlLower.includes('linkedin.com') || vendorLower.includes('linkedin');
+              const isGlassdoor = urlLower.includes('glassdoor.com') || vendorLower.includes('glassdoor');
+              const isArc = urlLower.includes('arc.dev') || vendorLower.includes('arc.dev') || sourceLower.includes('arc');
+              const isDynamite = urlLower.includes('dynamitejobs.com') || vendorLower.includes('dynamite');
+              const isIndeed = urlLower.includes('indeed.com') || vendorLower.includes('indeed');
+              const isKerjaRemote = urlLower.includes('kerja-remote.com') || vendorLower.includes('kerja-remote') || sourceLower.includes('kerja-remote');
+              const isNoDesk = urlLower.includes('nodesk.co') || vendorLower.includes('nodesk');
+              const isUpwork = urlLower.includes('upwork.com') || vendorLower.includes('upwork');
+
               const isRemote = job.workplaceType === 'remote' || /remote|anywhere|wfh/i.test(job.location);
 
               return (
@@ -597,7 +646,7 @@ export const CareerPage: FC<CareerPageProps> = ({
                   data-salary={job.salaryNumeric || 0}
                   data-match={job.matchScore || 0}
                   data-date={new Date(job.postedAt).getTime() || 0}
-                  data-search={`${job.title} ${job.company} ${job.location} ${job.salary || ''} ${job.matchedSkills.join(' ')} ${job.roleCategory} ${job.atsVendor || ''} ${job.source || ''} ${isLinkedIn ? 'linkedin linkedin.com' : ''} ${isGlassdoor ? 'glassdoor glassdoor.com' : ''} ${isRemote ? 'remote wfh anywhere' : ''}`.toLowerCase()}
+                  data-search={`${job.title} ${job.company} ${job.location} ${job.salary || ''} ${job.matchedSkills.join(' ')} ${job.roleCategory} ${job.atsVendor || ''} ${job.source || ''} ${isLinkedIn ? 'linkedin linkedin.com' : ''} ${isGlassdoor ? 'glassdoor glassdoor.com' : ''} ${isArc ? 'arc arc.dev' : ''} ${isDynamite ? 'dynamite dynamitejobs' : ''} ${isIndeed ? 'indeed' : ''} ${isKerjaRemote ? 'kerja-remote kerjaremote' : ''} ${isNoDesk ? 'nodesk' : ''} ${isUpwork ? 'upwork' : ''} ${isRemote ? 'remote wfh anywhere' : ''}`.toLowerCase()}
                 >
                   {/* Header: Company & Badges */}
                   <div class="space-y-2.5">
@@ -635,6 +684,54 @@ export const CareerPage: FC<CareerPageProps> = ({
                           <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#00A261]/20 border border-[#00A261]/45 text-[#5CDB95] text-xs font-mono font-bold shadow-xs">
                             <div class="w-3.5 h-3.5 rounded-xs bg-[#00A261] flex items-center justify-center text-white font-bold text-[9px] leading-none">G</div>
                             <span>Glassdoor Verified</span>
+                          </div>
+                        )}
+
+                        {/* Arc.dev Badge */}
+                        {isArc && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#7A5AF8]/20 border border-[#7A5AF8]/45 text-[#BDB4FE] text-xs font-mono font-bold shadow-xs">
+                            <span>⚡</span>
+                            <span>Arc.dev Verified</span>
+                          </div>
+                        )}
+
+                        {/* Dynamite Jobs Badge */}
+                        {isDynamite && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#FF4F00]/20 border border-[#FF4F00]/45 text-[#FF8A65] text-xs font-mono font-bold shadow-xs">
+                            <span>🎯</span>
+                            <span>Dynamite Jobs</span>
+                          </div>
+                        )}
+
+                        {/* Indeed Badge */}
+                        {isIndeed && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#2164F3]/20 border border-[#2164F3]/45 text-[#90CAF9] text-xs font-mono font-bold shadow-xs">
+                            <span class="font-black text-[10px]">in</span>
+                            <span>Indeed Verified</span>
+                          </div>
+                        )}
+
+                        {/* Kerja-Remote Badge */}
+                        {isKerjaRemote && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D9488]/20 border border-[#0D9488]/45 text-[#5EEAD4] text-xs font-mono font-bold shadow-xs">
+                            <span>🇮🇩</span>
+                            <span>Kerja-Remote SEA</span>
+                          </div>
+                        )}
+
+                        {/* NoDesk Badge */}
+                        {isNoDesk && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#F59E0B]/20 border border-[#F59E0B]/45 text-[#FCD34D] text-xs font-mono font-bold shadow-xs">
+                            <span>🌍</span>
+                            <span>NoDesk Curated</span>
+                          </div>
+                        )}
+
+                        {/* Upwork Badge */}
+                        {isUpwork && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#14A800]/20 border border-[#14A800]/45 text-[#86EFAC] text-xs font-mono font-bold shadow-xs">
+                            <span class="font-bold text-[10px]">up</span>
+                            <span>Upwork Enterprise</span>
                           </div>
                         )}
 
@@ -703,7 +800,7 @@ export const CareerPage: FC<CareerPageProps> = ({
                       </span>
                     </div>
 
-                    {/* Action Buttons: Apply Directly / Apply on LinkedIn/Glassdoor + Copy Quick Pitch */}
+                    {/* Action Buttons: Apply Directly / Apply on Respective Portal + Copy Quick Pitch */}
                     <div class="flex items-center gap-2 pt-1">
                       {/* Direct Apply Button */}
                       <a
@@ -715,6 +812,18 @@ export const CareerPage: FC<CareerPageProps> = ({
                             ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#0A66C2] hover:bg-[#004182] text-white transition shadow-md shadow-[#0A66C2]/30 flex items-center justify-center gap-1.5"
                             : isGlassdoor
                             ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#00A261] hover:bg-[#008751] text-white transition shadow-md shadow-[#00A261]/30 flex items-center justify-center gap-1.5"
+                            : isArc
+                            ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#7A5AF8] hover:bg-[#6941C6] text-white transition shadow-md shadow-[#7A5AF8]/30 flex items-center justify-center gap-1.5"
+                            : isDynamite
+                            ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#FF4F00] hover:bg-[#E04500] text-white transition shadow-md shadow-[#FF4F00]/30 flex items-center justify-center gap-1.5"
+                            : isIndeed
+                            ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#2164F3] hover:bg-[#1A50C2] text-white transition shadow-md shadow-[#2164F3]/30 flex items-center justify-center gap-1.5"
+                            : isKerjaRemote
+                            ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#0D9488] hover:bg-[#0F766E] text-white transition shadow-md shadow-[#0D9488]/30 flex items-center justify-center gap-1.5"
+                            : isNoDesk
+                            ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#D97706] hover:bg-[#B45309] text-white transition shadow-md shadow-[#D97706]/30 flex items-center justify-center gap-1.5"
+                            : isUpwork
+                            ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#14A800] hover:bg-[#108A00] text-white transition shadow-md shadow-[#14A800]/30 flex items-center justify-center gap-1.5"
                             : "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-[#B7D894] to-[#E0F8C7] text-[#202734] hover:brightness-105 transition shadow-md shadow-[#B7D894]/20 flex items-center justify-center gap-1.5"
                         }
                       >
@@ -726,11 +835,41 @@ export const CareerPage: FC<CareerPageProps> = ({
                         {isGlassdoor && (
                           <div class="w-4 h-4 rounded-xs bg-white text-[#00A261] flex items-center justify-center font-bold text-[10px] leading-none">G</div>
                         )}
+                        {isArc && (
+                          <span class="text-xs">⚡</span>
+                        )}
+                        {isDynamite && (
+                          <span class="text-xs">🎯</span>
+                        )}
+                        {isIndeed && (
+                          <span class="font-black text-xs">in</span>
+                        )}
+                        {isKerjaRemote && (
+                          <span class="text-xs">🇮🇩</span>
+                        )}
+                        {isNoDesk && (
+                          <span class="text-xs">🌍</span>
+                        )}
+                        {isUpwork && (
+                          <span class="font-bold text-xs">up</span>
+                        )}
                         <span>
                           {isLinkedIn
                             ? (isId ? 'Lamar di LinkedIn' : 'Apply on LinkedIn')
                             : isGlassdoor
                             ? (isId ? 'Lamar di Glassdoor' : 'Apply on Glassdoor')
+                            : isArc
+                            ? (isId ? 'Lamar di Arc.dev' : 'Apply on Arc.dev')
+                            : isDynamite
+                            ? (isId ? 'Lamar di Dynamite' : 'Apply on Dynamite')
+                            : isIndeed
+                            ? (isId ? 'Lamar di Indeed' : 'Apply on Indeed')
+                            : isKerjaRemote
+                            ? (isId ? 'Lamar di Kerja-Remote' : 'Apply on Kerja-Remote')
+                            : isNoDesk
+                            ? (isId ? 'Buka di NoDesk' : 'View on NoDesk')
+                            : isUpwork
+                            ? (isId ? 'Lamar di Upwork' : 'Apply on Upwork')
                             : t.applyButton}
                         </span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
