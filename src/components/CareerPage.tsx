@@ -55,6 +55,9 @@ export const CareerPage: FC<CareerPageProps> = ({
     sortSalary: isId ? '💰 Gaji Tertinggi' : '💰 Highest Salary',
     sortMatch: isId ? '🎯 Kecocokan CV' : '🎯 Best Match',
     sortNewest: isId ? '⚡ Terbit Terbaru' : '⚡ Newest',
+    filterWorkplaceAll: isId ? 'Semua Tipe' : 'All Types',
+    filterWorkplaceRemote: isId ? '🌐 Remote Saja (Diutamakan)' : '🌐 Remote Only (Preferred)',
+    filterWorkplaceHybrid: isId ? '🏢 Hybrid / Onsite' : '🏢 Hybrid / Onsite',
     filterRoleAll: isId ? 'Semua Posisi' : 'All Roles',
     filterRoleLead: isId ? 'IT Head & Lead' : 'IT Head & Lead',
     filterRoleBackend: isId ? 'Backend Engineering' : 'Backend Engineering',
@@ -344,8 +347,36 @@ export const CareerPage: FC<CareerPageProps> = ({
               </div>
             </div>
 
-            {/* Region Filter Buttons */}
+            {/* Workplace / Remote Preference Filter */}
             <div class="flex flex-wrap items-center gap-2 pt-1">
+              <span class="text-xs font-mono text-slate-400 mr-1">{isId ? 'Tipe Kerja:' : 'Workplace:'}</span>
+              <button
+                type="button"
+                data-workplace="all"
+                class="workplace-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#B7D894] text-[#202734] transition cursor-pointer"
+              >
+                {t.filterWorkplaceAll}
+              </button>
+              <button
+                type="button"
+                data-workplace="remote"
+                class="workplace-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-[#202734]/80 text-[#E0F8C7] hover:text-white border border-[#B7D894]/40 hover:border-[#B7D894] transition cursor-pointer flex items-center gap-1.5 shadow-xs"
+                title={isId ? 'Tampilkan hanya lowongan 100% remote (diutamakan)' : 'Show 100% remote positions only (preferred)'}
+              >
+                <span class="inline-block w-2 h-2 rounded-full bg-[#B7D894] animate-pulse"></span>
+                <span>{t.filterWorkplaceRemote}</span>
+              </button>
+              <button
+                type="button"
+                data-workplace="hybrid_onsite"
+                class="workplace-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734]/80 text-slate-300 hover:text-white border border-white/10 transition cursor-pointer"
+              >
+                {t.filterWorkplaceHybrid}
+              </button>
+            </div>
+
+            {/* Region Filter Buttons */}
+            <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-white/5">
               <span class="text-xs font-mono text-slate-400 mr-1">Region:</span>
               <button
                 type="button"
@@ -422,6 +453,15 @@ export const CareerPage: FC<CareerPageProps> = ({
               </button>
               <button
                 type="button"
+                data-role="glassdoor"
+                class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734]/80 text-[#5CDB95] hover:text-white border border-[#00A261]/40 hover:border-[#00A261] transition cursor-pointer flex items-center gap-1.5 shadow-xs"
+                title={isId ? 'Filter lowongan remote terverifikasi dari portal Glassdoor' : 'Filter verified remote jobs from Glassdoor portal'}
+              >
+                <div class="w-3.5 h-3.5 rounded-xs bg-[#00A261] flex items-center justify-center text-white font-bold text-[9px] leading-none">G</div>
+                <span>Glassdoor Remote</span>
+              </button>
+              <button
+                type="button"
                 data-role="ai"
                 class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734]/80 text-slate-300 hover:text-white border border-white/10 transition cursor-pointer flex items-center gap-1.5"
               >
@@ -480,10 +520,68 @@ export const CareerPage: FC<CareerPageProps> = ({
             </div>
           </section>
 
+          {/* Glassdoor Remote Live Search Box */}
+          <div class="glass-panel rounded-2xl p-5 border border-[#00A261]/35 bg-gradient-to-br from-[#202734] via-[#202734]/95 to-[#00A261]/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-lg shadow-black/20">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-md bg-[#00A261] flex items-center justify-center text-white font-black text-xs shadow-xs">G</div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>{isId ? 'Pencarian Remote Siap Pakai di Glassdoor.com' : 'Direct Remote Search on Glassdoor.com'}</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40">{isId ? 'Resmi & Aman' : 'Verified Official'}</span>
+                </h3>
+              </div>
+              <p class="text-xs text-slate-300">
+                {isId
+                  ? 'Buka lowongan kerja remote global di Glassdoor dengan filter pencarian instan sesuai keahlian utama:'
+                  : 'Explore live worldwide remote vacancies on Glassdoor pre-filtered to matching tech domains:'}
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <a
+                href="https://www.glassdoor.com/Job/remote-backend-engineer-jobs-SRCH_IL.0,6_IS11047_KO7,23.htm"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1 shadow-xs"
+              >
+                <span>⚡ Backend Remote</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+              <a
+                href="https://www.glassdoor.com/Job/remote-cloud-architect-jobs-SRCH_IL.0,6_IS11047_KO7,22.htm"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1 shadow-xs"
+              >
+                <span>☁️ Cloud AWS / GCP</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+              <a
+                href="https://www.glassdoor.com/Job/remote-head-of-it-jobs-SRCH_IL.0,6_IS11047_KO7,17.htm"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1 shadow-xs"
+              >
+                <span>👔 IT Head / Lead</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+              <a
+                href="https://www.glassdoor.com/Job/remote-mysql-dba-jobs-SRCH_IL.0,6_IS11047_KO7,16.htm"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#202734] hover:bg-[#00A261]/25 text-[#5CDB95] border border-[#00A261]/40 transition flex items-center gap-1 shadow-xs"
+              >
+                <span>🗄️ Linux & DBA</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+            </div>
+          </div>
+
           {/* JOB LISTINGS GRID */}
           <main id="jobGridContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {jobs.map((job, idx) => {
               const isLinkedIn = job.applyUrl.includes('linkedin.com') || (job.atsVendor && job.atsVendor.toLowerCase().includes('linkedin'));
+              const isGlassdoor = job.applyUrl.includes('glassdoor.com') || (job.atsVendor && job.atsVendor.toLowerCase().includes('glassdoor'));
+              const isRemote = job.workplaceType === 'remote' || /remote|anywhere|wfh/i.test(job.location);
 
               return (
                 <article
@@ -492,11 +590,14 @@ export const CareerPage: FC<CareerPageProps> = ({
                   style={idx >= 10 ? 'display: none;' : ''}
                   data-region={job.region}
                   data-role={job.roleCategory}
+                  data-workplace={isRemote ? 'remote' : 'hybrid_onsite'}
                   data-is-linkedin={isLinkedIn ? 'true' : 'false'}
+                  data-is-glassdoor={isGlassdoor ? 'true' : 'false'}
+                  data-is-remote={isRemote ? 'true' : 'false'}
                   data-salary={job.salaryNumeric || 0}
                   data-match={job.matchScore || 0}
                   data-date={new Date(job.postedAt).getTime() || 0}
-                  data-search={`${job.title} ${job.company} ${job.location} ${job.salary || ''} ${job.matchedSkills.join(' ')} ${job.roleCategory} ${job.atsVendor || ''} ${job.source || ''} ${isLinkedIn ? 'linkedin linkedin.com' : ''}`.toLowerCase()}
+                  data-search={`${job.title} ${job.company} ${job.location} ${job.salary || ''} ${job.matchedSkills.join(' ')} ${job.roleCategory} ${job.atsVendor || ''} ${job.source || ''} ${isLinkedIn ? 'linkedin linkedin.com' : ''} ${isGlassdoor ? 'glassdoor glassdoor.com' : ''} ${isRemote ? 'remote wfh anywhere' : ''}`.toLowerCase()}
                 >
                   {/* Header: Company & Badges */}
                   <div class="space-y-2.5">
@@ -511,6 +612,14 @@ export const CareerPage: FC<CareerPageProps> = ({
                           <span>{job.matchScore}% Match</span>
                         </div>
 
+                        {/* Remote Priority Badge */}
+                        {isRemote && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold shadow-xs">
+                            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span>🌐 100% Remote</span>
+                          </div>
+                        )}
+
                         {/* LinkedIn Official Badge */}
                         {isLinkedIn && (
                           <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A66C2]/20 border border-[#0A66C2]/45 text-[#70B5F9] text-xs font-mono font-bold shadow-xs">
@@ -518,6 +627,14 @@ export const CareerPage: FC<CareerPageProps> = ({
                               <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
                             </svg>
                             <span>LinkedIn Job</span>
+                          </div>
+                        )}
+
+                        {/* Glassdoor Official Badge */}
+                        {isGlassdoor && (
+                          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#00A261]/20 border border-[#00A261]/45 text-[#5CDB95] text-xs font-mono font-bold shadow-xs">
+                            <div class="w-3.5 h-3.5 rounded-xs bg-[#00A261] flex items-center justify-center text-white font-bold text-[9px] leading-none">G</div>
+                            <span>Glassdoor Verified</span>
                           </div>
                         )}
 
@@ -586,23 +703,40 @@ export const CareerPage: FC<CareerPageProps> = ({
                       </span>
                     </div>
 
-                    {/* Action Buttons: Apply Directly / Apply on LinkedIn + Copy Quick Pitch */}
+                    {/* Action Buttons: Apply Directly / Apply on LinkedIn/Glassdoor + Copy Quick Pitch */}
                     <div class="flex items-center gap-2 pt-1">
                       {/* Direct Apply Button */}
                       <a
                         href={job.applyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class={isLinkedIn
-                          ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#0A66C2] hover:bg-[#004182] text-white transition shadow-md shadow-[#0A66C2]/30 flex items-center justify-center gap-1.5"
-                          : "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-[#B7D894] to-[#E0F8C7] text-[#202734] hover:brightness-105 transition shadow-md shadow-[#B7D894]/20 flex items-center justify-center gap-1.5"}
+                        class={
+                          isLinkedIn
+                            ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#0A66C2] hover:bg-[#004182] text-white transition shadow-md shadow-[#0A66C2]/30 flex items-center justify-center gap-1.5"
+                            : isGlassdoor
+                            ? "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#00A261] hover:bg-[#008751] text-white transition shadow-md shadow-[#00A261]/30 flex items-center justify-center gap-1.5"
+                            : "flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-[#B7D894] to-[#E0F8C7] text-[#202734] hover:brightness-105 transition shadow-md shadow-[#B7D894]/20 flex items-center justify-center gap-1.5"
+                        }
                       >
                         {isLinkedIn && (
                           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                             <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
                           </svg>
                         )}
-                        <span>{isLinkedIn ? (isId ? 'Lamar di LinkedIn' : 'Apply on LinkedIn') : t.applyButton}</span>
+                        {isGlassdoor && (
+                          <div class="w-4 h-4 rounded-xs bg-white text-[#00A261] flex items-center justify-center font-bold text-[10px] leading-none">G</div>
+                        )}
+                        <span>
+                          {isLinkedIn
+                            ? (isId ? 'Lamar di LinkedIn' : 'Apply on LinkedIn')
+                            : isGlassdoor
+                            ? (isId ? 'Lamar di Glassdoor' : 'Apply on Glassdoor')
+                            : t.applyButton}
+                        </span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
@@ -715,6 +849,7 @@ export const CareerPage: FC<CareerPageProps> = ({
             __html: `
 (function() {
   var activeRegion = 'all';
+  var activeWorkplace = 'all';
   var activeRole = 'all';
   var activeSort = 'salary'; // Default: Order by Salary Tertinggi
   var searchQuery = '';
@@ -723,6 +858,7 @@ export const CareerPage: FC<CareerPageProps> = ({
   var matchingCards = [];
 
   var searchInput = document.getElementById('careerSearchInput');
+  var workplaceBtns = document.querySelectorAll('.workplace-btn');
   var regionBtns = document.querySelectorAll('.region-btn');
   var roleBtns = document.querySelectorAll('.role-btn');
   var sortBtns = document.querySelectorAll('.sort-btn');
@@ -743,10 +879,22 @@ export const CareerPage: FC<CareerPageProps> = ({
     for (var i = 0; i < jobCards.length; i++) {
       var card = jobCards[i];
       var cardRegion = card.getAttribute('data-region') || '';
+      var cardWorkplace = card.getAttribute('data-workplace') || '';
       var cardRole = card.getAttribute('data-role') || '';
       var cardSearch = card.getAttribute('data-search') || '';
+      var cardIsRemote = card.getAttribute('data-is-remote') === 'true';
 
       var matchesRegion = (activeRegion === 'all' || cardRegion === activeRegion);
+
+      var matchesWorkplace = false;
+      if (activeWorkplace === 'all') {
+        matchesWorkplace = true;
+      } else if (activeWorkplace === 'remote') {
+        matchesWorkplace = cardIsRemote || cardWorkplace === 'remote';
+      } else if (activeWorkplace === 'hybrid_onsite') {
+        matchesWorkplace = !cardIsRemote && cardWorkplace !== 'remote';
+      }
+
       var matchesRole = false;
       if (activeRole === 'all') {
         matchesRole = true;
@@ -754,12 +902,14 @@ export const CareerPage: FC<CareerPageProps> = ({
         matchesRole = /(ai|llm|agent|agentic|prompt|genai|vibe|gpt|claude|gemini)/i.test(cardSearch);
       } else if (activeRole === 'linkedin') {
         matchesRole = (card.getAttribute('data-is-linkedin') === 'true' || cardSearch.indexOf('linkedin') !== -1);
+      } else if (activeRole === 'glassdoor') {
+        matchesRole = (card.getAttribute('data-is-glassdoor') === 'true' || cardSearch.indexOf('glassdoor') !== -1);
       } else {
         matchesRole = (cardRole === activeRole);
       }
       var matchesSearch = !searchQuery || cardSearch.indexOf(searchQuery) !== -1;
 
-      if (matchesRegion && matchesRole && matchesSearch) {
+      if (matchesRegion && matchesWorkplace && matchesRole && matchesSearch) {
         matchingCards.push(card);
       }
     }
@@ -776,9 +926,11 @@ export const CareerPage: FC<CareerPageProps> = ({
         var dateB = Number(b.getAttribute('data-date') || 0);
         return dateB - dateA;
       } else {
-        // match
-        var matchA = Number(a.getAttribute('data-match') || 0);
-        var matchB = Number(b.getAttribute('data-match') || 0);
+        // match: Priority given to 100% remote jobs
+        var remA = a.getAttribute('data-is-remote') === 'true' ? 2 : 0;
+        var remB = b.getAttribute('data-is-remote') === 'true' ? 2 : 0;
+        var matchA = Number(a.getAttribute('data-match') || 0) + remA;
+        var matchB = Number(b.getAttribute('data-match') || 0) + remB;
         if (matchB !== matchA) return matchB - matchA;
         return Number(b.getAttribute('data-salary') || 0) - Number(a.getAttribute('data-salary') || 0);
       }
@@ -912,6 +1064,21 @@ export const CareerPage: FC<CareerPageProps> = ({
     })(sortBtns[s]);
   }
 
+  for (var w = 0; w < workplaceBtns.length; w++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        for (var k = 0; k < workplaceBtns.length; k++) {
+          workplaceBtns[k].classList.remove('bg-[#B7D894]', 'text-[#202734]');
+          workplaceBtns[k].classList.add('bg-[#202734]/80', 'text-slate-300');
+        }
+        btn.classList.remove('bg-[#202734]/80', 'text-slate-300');
+        btn.classList.add('bg-[#B7D894]', 'text-[#202734]');
+        activeWorkplace = btn.getAttribute('data-workplace') || 'all';
+        applyFilters();
+      });
+    })(workplaceBtns[w]);
+  }
+
   for (var r = 0; r < regionBtns.length; r++) {
     (function(btn) {
       btn.addEventListener('click', function() {
@@ -947,6 +1114,7 @@ export const CareerPage: FC<CareerPageProps> = ({
       if (searchInput) searchInput.value = '';
       searchQuery = '';
       activeRegion = 'all';
+      activeWorkplace = 'all';
       activeRole = 'all';
       activeSort = 'salary';
 
@@ -957,6 +1125,16 @@ export const CareerPage: FC<CareerPageProps> = ({
         } else {
           sortBtns[s].classList.remove('bg-gradient-to-r', 'from-amber-400', 'to-[#B7D894]', 'text-[#202734]', 'font-bold');
           sortBtns[s].classList.add('text-slate-300', 'font-semibold');
+        }
+      }
+
+      for (var w = 0; w < workplaceBtns.length; w++) {
+        if (w === 0) {
+          workplaceBtns[w].classList.add('bg-[#B7D894]', 'text-[#202734]');
+          workplaceBtns[w].classList.remove('bg-[#202734]/80', 'text-slate-300');
+        } else {
+          workplaceBtns[w].classList.remove('bg-[#B7D894]', 'text-[#202734]');
+          workplaceBtns[w].classList.add('bg-[#202734]/80', 'text-slate-300');
         }
       }
 
@@ -983,6 +1161,50 @@ export const CareerPage: FC<CareerPageProps> = ({
       applyFilters();
     });
   }
+
+  var pitchButtons = document.querySelectorAll('.copy-pitch-btn');
+  for (var p = 0; p < pitchButtons.length; p++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        var title = btn.getAttribute('data-job-title') || 'Technical Role';
+        var company = btn.getAttribute('data-job-company') || 'your company';
+        var pitch = "Hi! I am Agus Maulana Yusuf Noor, an IT Department Head & Backend Engineer with 15+ years of experience in enterprise banking, Linux server administration, and modern AI & Vibe Coding paradigms (Golang, Python, Laravel, MySQL, AI Agents). I would love to connect regarding the " + title + " opening at " + company + "! Full Portfolio & ATS Scorecard: https://agusmyn.my.id";
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(pitch).then(showToast).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+
+        function fallbackCopy() {
+          var el = document.createElement('textarea');
+          el.value = pitch;
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+          showToast();
+        }
+      });
+    })(pitchButtons[p]);
+  }
+
+  function showToast() {
+    if (!toast) return;
+    toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    setTimeout(function() {
+      toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 3000);
+  }
+
+  // Run on initial load
+  applyFilters();
+})();
+            `,
+          }}
+        />
 
   var pitchButtons = document.querySelectorAll('.copy-pitch-btn');
   for (var p = 0; p < pitchButtons.length; p++) {

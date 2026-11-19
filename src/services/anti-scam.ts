@@ -44,6 +44,8 @@ const ENTERPRISE_ATS_DOMAINS: Record<string, string> = {
   'paylocity.com': 'Paylocity',
   'cutshort.io': 'Cutshort',
   'linkedin.com': 'LinkedIn Talent',
+  'glassdoor.com': 'Glassdoor Verified',
+  'www.glassdoor.com': 'Glassdoor Verified',
   'glints.com': 'Glints Verified',
   'jobstreet.co.id': 'JobStreet Verified',
   'jobstreet.com': 'JobStreet Verified',
