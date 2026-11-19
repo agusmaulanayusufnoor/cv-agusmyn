@@ -737,10 +737,6 @@ export const CareerPage: FC<CareerPageProps> = ({
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </a>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
 
                       {/* Copy Quick Pitch Button */}
                       <button
@@ -1161,50 +1157,6 @@ export const CareerPage: FC<CareerPageProps> = ({
       applyFilters();
     });
   }
-
-  var pitchButtons = document.querySelectorAll('.copy-pitch-btn');
-  for (var p = 0; p < pitchButtons.length; p++) {
-    (function(btn) {
-      btn.addEventListener('click', function() {
-        var title = btn.getAttribute('data-job-title') || 'Technical Role';
-        var company = btn.getAttribute('data-job-company') || 'your company';
-        var pitch = "Hi! I am Agus Maulana Yusuf Noor, an IT Department Head & Backend Engineer with 15+ years of experience in enterprise banking, Linux server administration, and modern AI & Vibe Coding paradigms (Golang, Python, Laravel, MySQL, AI Agents). I would love to connect regarding the " + title + " opening at " + company + "! Full Portfolio & ATS Scorecard: https://agusmyn.my.id";
-
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(pitch).then(showToast).catch(fallbackCopy);
-        } else {
-          fallbackCopy();
-        }
-
-        function fallbackCopy() {
-          var el = document.createElement('textarea');
-          el.value = pitch;
-          document.body.appendChild(el);
-          el.select();
-          document.execCommand('copy');
-          document.body.removeChild(el);
-          showToast();
-        }
-      });
-    })(pitchButtons[p]);
-  }
-
-  function showToast() {
-    if (!toast) return;
-    toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-    toast.classList.add('opacity-100', 'translate-y-0');
-    setTimeout(function() {
-      toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-      toast.classList.remove('opacity-100', 'translate-y-0');
-    }, 3000);
-  }
-
-  // Run on initial load
-  applyFilters();
-})();
-            `,
-          }}
-        />
 
   var pitchButtons = document.querySelectorAll('.copy-pitch-btn');
   for (var p = 0; p < pitchButtons.length; p++) {
